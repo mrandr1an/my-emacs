@@ -1,0 +1,10 @@
+* Emacs Configuration
+** TODO Features
+- [ ] [[file:bibliography-management.org][Bibliography Management]]
+- [ ] [[file:programming/programming.org][Programming]]
+- [ ] [[file:note-taking.org][Note Taking]]
+- [ ] [[journaling.org][Journaling]]
+- [ ] [[file:system-management.org][System Management]] 
+- [ ] [[chat.org][Chat Interfaces]]
+- [ ] [[file:writting.org][Writting]] 
+- [ ] [[file:agenda-management.org][Agenda Management]]
