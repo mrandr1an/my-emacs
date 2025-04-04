@@ -8,3 +8,4 @@
 - [ ] [[chat.org][Chat Interfaces]]
 - [ ] [[file:writting.org][Writting]] 
 - [ ] [[file:agenda-management.org][Agenda Management]]
+- [ ] Email Management
