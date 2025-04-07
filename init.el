@@ -46,6 +46,15 @@
   (elpaca-use-package-mode))
 
 
+(use-package apropospriate-theme
+  :ensure t
+  :config 
+  (load-theme 'apropospriate-dark t)
+  ;; or
+  ;; (load-theme 'apropospriate-light t)
+)
+
+
 ;;Defaults
 (use-package emacs
   :ensure nil
