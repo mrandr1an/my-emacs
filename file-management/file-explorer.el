@@ -2,8 +2,10 @@
 ;;; Commentary:
 
 ;;; Code:
-(use-package dirvish
-  :ensure t
+(require 'keybinding-manager)
+
+(use-package dired
+  :ensure nil
 )
 
 (provide 'file-explorer)

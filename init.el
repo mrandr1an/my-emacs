@@ -45,12 +45,58 @@
   ;; Enable use-package :ensure support for Elpaca.
   (elpaca-use-package-mode))
 
-;; Enable vim motions
-(require 'vim-motions)
+
+;;Defaults
+(use-package emacs
+  :ensure nil
+  :custom
+  ;; Support opening new minibuffers from inside existing minibuffers.
+  (enable-recursive-minibuffers t)
+  ;; Hide commands in M-x which do not work in the current mode.
+  (read-extended-command-predicate #'command-completion-default-include-p)
+  :init
+  (setq inhibit-startup-screen t)
+)
+
+(use-package nlinum
+  :ensure t
+  :hook
+  (prog-mode . linum-mode)
+)
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+)
+
 ;; Enable extra keybindings
 (require 'keybinding-manager)
+;; Enable vim motions
+(require 'vim-motions)
+;; Enable avy motions
+(require 'avy-motions)
+;; Extra
+(require 'navigation)
 ;; Enable file exploring
 (require 'file-explorer)
+;; Enable project Managemer
+(require 'project-manager)
+;; Enable versioning ex. git
+(require 'versioning)
+;; Enable autocomplete on minibuffer
+(require 'minibuffer-autocomplete)
+;; Enable autocomplete on region
+(require 'region-autocomplete)
+;; Enable orderless filter
+(require 'orderless-filtering)
+;; Org Mode
+;; Enable org aesthetics
+(require 'org-aesthetics)
+
+;; Lsp
+(require 'programming-lsp)
+
+(require 'startup)
 
 (require 'variables)
 ;;; init.el ends here

@@ -7,6 +7,7 @@
   :config
   (general-auto-unbind-keys)
 )
+(elpaca-wait)
 
 (provide 'keybinding-manager)
 ;;; general.el ends here
