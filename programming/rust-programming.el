@@ -1,14 +1,13 @@
 (use-package rustic
   :ensure t
   :config
-  (setq rustic-format-on-save t)
-  :hook
-  (rustic-mode . my/rustic-mode)
+  (setq rustic-lsp-setup-p nil)
 )
 
-(defun my/rustic-mode ()
-(when buffer-file-name
-    (setq-local buffer-save-without-query t))
-(add-hook 'before-save-hook 'lsp-format-buffer nil t))
+(use-package flycheck-rust
+  :ensure t
+  :hook
+  (flycheck-mode . flycheck-rust-setup)
+)
 
 (provide 'rust-programming)

@@ -1,6 +1,5 @@
-
-* 
-
+#+TITLE: Programming in My-Emacs
+#+AUTHOR: Chris Liourtas
 
 * Programming Configuration
 

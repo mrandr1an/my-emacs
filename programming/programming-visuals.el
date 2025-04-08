@@ -10,4 +10,10 @@
   :init (global-flycheck-mode)
 )
 
+(use-package flycheck-inline
+  :ensure t
+  :hook
+  (flycheck-mode . flycheck-inline-mode)
+)
+
 (provide 'programming-visuals)
