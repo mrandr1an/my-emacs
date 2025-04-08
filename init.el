@@ -50,8 +50,6 @@
   :ensure t
   :config 
   (load-theme 'apropospriate-dark t)
-  ;; or
-  ;; (load-theme 'apropospriate-light t)
 )
 
 
@@ -71,6 +69,14 @@
   :ensure t
   :hook
   (prog-mode . linum-mode)
+)
+
+(use-package all-the-icons
+  :ensure t
+)
+
+(use-package nerd-icons
+   :ensure t
 )
 
 (use-package doom-modeline
@@ -101,11 +107,19 @@
 ;; Org Mode
 ;; Enable org aesthetics
 (require 'org-aesthetics)
+;; Enable org configuratione
+(require 'org-configuration)
 
+;; Snippets
+(require 'snippets)
 ;; Lsp
 (require 'programming-lsp)
+;; Visuals for programming
+(require 'programming-visuals)
+;; Enbable Rust
+(require 'rust-programming)
 
-(require 'startup)
+;; (require 'startup)
 
 (require 'variables)
 ;;; init.el ends here

@@ -25,8 +25,8 @@
   (corfu-history-mode)
   (corfu-quit-at-boundary 'seperator)
   (add-to-list 'corfu-continue-commands #'corfu-move-to-minibuffer)
-  :init
-  (global-corfu-mode)
+  :hook
+  (org-mode . corfu-mode)
 )
 
 (use-package dabbrev

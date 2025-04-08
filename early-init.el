@@ -15,7 +15,7 @@
 ;;; Add project-management to load-path
 (add-to-list 'load-path (expand-file-name "project-management" user-emacs-directory))
 ;; Add dashboard to load-path
-(add-to-list 'load-path (expand-file-name "dashboard" user-emacs-directory))
+;; (add-to-list 'load-path (expand-file-name "dashboard" user-emacs-directory))
 ;; Add autocomplete to load-path
 (add-to-list 'load-path (expand-file-name "autocomplete" user-emacs-directory))
 ;; Add org configuration to load-path
@@ -28,7 +28,7 @@
 (setq package-enable-at-startup nil)
 
 ;;Fonts
-(set-face-attribute 'default nil :family "ComicShannsMonoNerdFontMono" :height 110)
+(set-face-attribute 'default nil :family "ComicShannsMonoNerdFontMono" :height 150)
 
 ;;Sensible defaults
 (tool-bar-mode -1)
