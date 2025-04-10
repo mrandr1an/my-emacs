@@ -18,10 +18,14 @@
 ;; (add-to-list 'load-path (expand-file-name "dashboard" user-emacs-directory))
 ;; Add autocomplete to load-path
 (add-to-list 'load-path (expand-file-name "autocomplete" user-emacs-directory))
+;; Add notetaking to load-path
+(add-to-list 'load-path (expand-file-name "note-taking" user-emacs-directory))
 ;; Add org configuration to load-path
 (add-to-list 'load-path (expand-file-name "org" user-emacs-directory))
 ;; Add programming configuration to load-path
 (add-to-list 'load-path (expand-file-name "programming" user-emacs-directory))
+;; Add bibliography configuration to load-path
+(add-to-list 'load-path (expand-file-name "bibliography-management" user-emacs-directory))
 
 
 ;; Disable package.el in favor of straight.el

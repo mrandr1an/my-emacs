@@ -11,9 +11,9 @@
    "C" 'evil-avy-goto-char-2
    "v" 'evil-avy-goto-subword-0
    "V" 'evil-avy-goto-subword-1
-   "z" 'evil-avy-move-line
-   "Z" 'evil-avy-move-region
-  )
+   "z" 'avy-move-line
+   "Z" 'avy-move-region
+   )
 )
 
 (provide 'avy-motions)

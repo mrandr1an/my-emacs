@@ -105,10 +105,17 @@
 ;; Enable orderless filter
 (require 'orderless-filtering)
 ;; Org Mode
+
+;;Note Taking
+(require 'roam-notes)
 ;; Enable org aesthetics
 (require 'org-aesthetics)
 ;; Enable org configuratione
 (require 'org-configuration)
+
+;;Bibliography Management
+(require 'bib-notes)
+(require 'bib-manager)
 
 ;; Snippets
 (require 'snippets)

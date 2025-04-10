@@ -17,4 +17,5 @@ must be installed:
 ** TODO Default Variables
 
 ** TODO Features
+- [ ] Modular Editing
 - [ ] [[file:programming/programming.org][Programming]]

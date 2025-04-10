@@ -31,7 +31,32 @@
   "Directory where notes are supposed to be."
   :type 'string
   :group 'my-emacs/variables
-  )
+)
+
+
+(defcustom my-emacs/roam-notes-dir (concat my-emacs/notes-dir "Roam/")
+  "Directory where roam notes are supposed to be."
+  :type 'string
+  :group 'my-emacs/variables
+)
+
+(defcustom my-emacs/roam-templates-dir (concat my-emacs/notes-dir "Roam/RoamTemplates/")
+  "Directory where roam templates are supposed to be."
+  :type 'string
+  :group 'my-emacs/variables
+)
+
+(defcustom my-emacs/bib-references (concat my-emacs/bibliography-dir "references.org")
+  "Directory where roam templates are supposed to be."
+  :type 'string
+  :group 'my-emacs/variables
+)
+
+(defcustom my-emacs/bib-pdfs-dir (concat my-emacs/bibliography-dir "pdfs")
+  "Directory where roam templates are supposed to be."
+  :type 'string
+  :group 'my-emacs/variables
+)
 
 (defcustom my-emacs/journal-dir "~/Documents/Journal/"
   "Directory where notes are supposed to be."
@@ -49,3 +74,5 @@
 
 (provide 'variables)
 ;;; variables.el ends here
+
+(setq b (concat "BookNoteTemplate.org" my-emacs/roam-templates-dir) )
