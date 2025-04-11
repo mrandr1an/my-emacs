@@ -75,4 +75,3 @@
 (provide 'variables)
 ;;; variables.el ends here
 
-(setq b (concat "BookNoteTemplate.org" my-emacs/roam-templates-dir) )
