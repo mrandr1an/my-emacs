@@ -14,5 +14,4 @@
   (org-mode . my/pretty-org-symbols)
 )
 
-
 (provide 'org-configuration)

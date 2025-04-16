@@ -112,6 +112,8 @@
 (require 'org-aesthetics)
 ;; Enable org configuratione
 (require 'org-configuration)
+;; Enable org latex 
+(require 'org-latex)
 
 ;;Bibliography Management
 (require 'bib-notes)
@@ -127,6 +129,5 @@
 (require 'rust-programming)
 
 ;; (require 'startup)
-
 (require 'variables)
 ;;; init.el ends here
