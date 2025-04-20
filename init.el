@@ -61,6 +61,8 @@
   ;; Hide commands in M-x which do not work in the current mode.
   (read-extended-command-predicate #'command-completion-default-include-p)
   :init
+  (setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "firefox")
   (setq inhibit-startup-screen t)
   (org-babel-do-load-languages
    'org-babel-load-languages '(
