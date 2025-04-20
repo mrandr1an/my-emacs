@@ -52,7 +52,6 @@
   (load-theme 'apropospriate-dark t)
 )
 
-
 ;;Defaults
 (use-package emacs
   :ensure nil
@@ -63,6 +62,19 @@
   (read-extended-command-predicate #'command-completion-default-include-p)
   :init
   (setq inhibit-startup-screen t)
+  (org-babel-do-load-languages
+   'org-babel-load-languages '(
+			       (C . t)
+			       (emacs-lisp . t)
+			       (python . t)
+			       (haskell . t)
+			       ))
+)
+
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize)
 )
 
 (use-package nlinum
@@ -127,6 +139,8 @@
 (require 'programming-visuals)
 ;; Enbable Rust
 (require 'rust-programming)
+;; Enable Haskell 
+(require 'haskell-programming)
 
 ;; (require 'startup)
 (require 'variables)
