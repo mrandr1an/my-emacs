@@ -140,4 +140,7 @@
 
 ;; (require 'startup)
 (require 'variables)
+
+;;Custom file
+(customize-save-variable 'custom-file  (expand-file-name "custom.el" user-emacs-directory))
 ;;; init.el ends here
