@@ -19,6 +19,16 @@
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "TITLE: ${title}\n#+filetags: Tutorial")
       :unnarrowed t
       )
+     ("g" "General Notes" plain
+      (file "~/Documents/Notes/RoamTemplates/GeneralTemplate.org")
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+filetags: :note:${tag}:")
+      :unnarrowed t
+      )
+     ("p" "Project ideas" plain
+      (file "~/Documents/Notes/RoamTemplates/GeneralTemplate.org")
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+filetags: :project:${tag}:")
+      :unnarrowed t
+      )
     )
   )
   :general
@@ -35,6 +45,27 @@
 	   "y" 'org-roam-ref-add
 	   "u" 'org-roam-ref-remove
   )
+)
+
+(use-package org-ql
+  :ensure t
+  :after org
+)
+
+(use-package org-roam-ql
+  :ensure t
+  :after org
+  :general
+  (:prefix "C-c s"
+    ("t" . 'org-roam-ql-insert-node-title)
+  )
+)
+
+(use-package org-roam-ql-ql
+  :ensure t
+  :after (org-ql org-roam-ql)
+  :config
+  (org-roam-ql-ql-init)
 )
 
 (provide 'roam-notes)

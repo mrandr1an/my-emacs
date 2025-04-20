@@ -14,4 +14,19 @@
   (org-mode . my/pretty-org-symbols)
 )
 
+(use-package org-download
+  :ensure t
+)
+
+
+(use-package org-transclusion
+  :ensure t
+  :after org
+  :init
+  :general
+  (:prefix "C-c n"
+    "q" 'org-transclusion-add
+  )
+)
+
 (provide 'org-configuration)

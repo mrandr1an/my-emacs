@@ -69,8 +69,8 @@
 			       (python . t)
 			       (haskell . t)
 			       ))
-  :hook  
-  (prog-mode . linum-mode)
+  :hook
+  (prog-mode . display-line-numbers-mode)
 )
 
 (use-package exec-path-from-shell
