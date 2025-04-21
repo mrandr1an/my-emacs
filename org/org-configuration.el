@@ -9,9 +9,8 @@
    '(org-level-2 ((t (:height 1.2 :weight semi-bold :foreground "#98be65"))))
    '(org-level-3 ((t (:height 1.1 :foreground "#da8548")))))
   :hook
-  (org-mode . my/org-src-block-font-lock)
+  (org-mode . my/org-font-lock)
   (org-mode . prettify-symbols-mode)
-  (org-mode . my/pretty-org-symbols)
 )
 
 (use-package org-download

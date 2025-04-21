@@ -94,6 +94,12 @@
   :init (doom-modeline-mode 1)
 )
 
+
+;;Libraries
+(use-package svg-lib
+  :ensure t
+)
+
 ;; Enable extra keybindings
 (require 'keybinding-manager)
 ;; Enable vim motions
