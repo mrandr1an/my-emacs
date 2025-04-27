@@ -1,7 +1,8 @@
 (defun my/org-font-lock ()
   (font-lock-add-keywords
    nil
-   '(("^#\\+begin_src\\(.*\\)$"
+   '(
+     ("^#\\+begin_src\\(.*\\)$"
       (0 (progn
 	   (compose-region (match-beginning 0) (+ (match-beginning 0) 11) "")
 	   nil)))
@@ -63,6 +64,10 @@
 
 (defun svg-font-lock-heading ()
     (svg-lib-icon "format-section" nil :collection "material"
+		  :stroke 0 :scale 1 :padding 0))
+
+(defun svg-font-lock-begin-src ()
+    (svg-lib-icon "console" nil :collection "material"
 		  :stroke 0 :scale 1 :padding 0))
 
 (provide 'org-aesthetics)
