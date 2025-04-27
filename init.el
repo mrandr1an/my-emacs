@@ -49,7 +49,7 @@
 (use-package apropospriate-theme
   :ensure t
   :config 
-  (load-theme 'apropospriate-dark t)
+  (load-theme 'modus-operandi-tritanopia t)
 )
 
 ;;Defaults
@@ -70,6 +70,7 @@
 			       (emacs-lisp . t)
 			       (python . t)
 			       (haskell . t)
+			       (shell . t)
 			       ))
   :hook
   (prog-mode . display-line-numbers-mode)
@@ -94,6 +95,15 @@
   :init (doom-modeline-mode 1)
 )
 
+(use-package openwith
+  :ensure t
+  :config
+  (setq openwith-associations
+        '(("\\.pdf\\'" "evince" (file))
+          ("\\.djvu\\'" "evince" (file))
+          ("\\.html?\\'" "firefox" (file))
+          ("\\.mp4\\'" "vlc" (file))))
+  (openwith-mode 1))
 
 ;;Libraries
 (use-package svg-lib
