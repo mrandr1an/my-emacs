@@ -7,6 +7,7 @@
   :ensure t
   :config
   (projectile-mode +1)
+  (projectile-cleanup-known-projects)
   :general
   (
    :prefix "C-c p"
