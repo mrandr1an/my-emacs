@@ -155,9 +155,17 @@
 (require 'rust-programming)
 ;; Enable Haskell 
 (require 'haskell-programming)
+;; Enable Ocaml
+(require 'ocaml-programming)
+;; Enable Coq
+(require 'coq-programming)
 
 ;; (require 'startup)
 (require 'variables)
+
+
+;;LLMs
+(require 'llms)
 
 ;;Custom file
 (customize-save-variable 'custom-file  (expand-file-name "custom.el" user-emacs-directory))

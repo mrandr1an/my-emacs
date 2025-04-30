@@ -26,7 +26,8 @@
 (add-to-list 'load-path (expand-file-name "programming" user-emacs-directory))
 ;; Add bibliography configuration to load-path
 (add-to-list 'load-path (expand-file-name "bibliography-management" user-emacs-directory))
-
+;; Add bibliography configuration to load-path
+(add-to-list 'load-path (expand-file-name "llms" user-emacs-directory))
 
 ;; Disable package.el in favor of straight.el
 (setq package-enable-at-startup nil)
