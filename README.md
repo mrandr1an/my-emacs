@@ -1,6 +1,6 @@
 # My Emacs Configuration
 
- Assumes Fedora.
+ Assumes Fedora || NixOS.
 
 ## Dependencies
 
