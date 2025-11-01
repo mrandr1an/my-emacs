@@ -394,4 +394,118 @@ perhaps it should be enabled globally as a library from source so its marked as 
         "c" 'magit-clone)
   )
 #+end_src
+*** TODO Dired
+Dired (Directory Editor) is the built-in directory manager
+in Emacs (it predates it!). The desired functionallity is
+as follows:
+ - Display items in the following order:
+   1. Directories
+   2. Hidden Directories (If toggled)
+   3. Files
+   4. Hidden Files (If toggled)
+ - Toggle information of files/directories in region/cursor.
+ - Toggle preview of files/directories in region/cursor.
+ - Directory Functionallity
+   - Move
+   - Copy
+   - Rename
+   - Mkdir
+   - Touch
+   - Delete
+   - Compress
+   - Decompress
+   - Encrypt with key
+   - Decrypt with key
+   - Open in application
+   - Execute
+This is quite complex so its compartmentalized into different headings:
+**** Sorting Functionallity
+The =my-emacs--dired-category= function returns the category of an item
+as defined in =`my-emacs-dired-order`=. Note that this counts "." and ".."
+as =`hidden-files`=.
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-dired.el" :mkdirp yes
+  (defun my-emacs-dired--category (filename)
+    (let* ((base (file-name-nondirectory filename))
+  	 (hidden (and base (string-prefix-p "." base)))
+  	 (dir (file-directory-p filename)))
+      (cond
+       ((and dir hidden) 'hidden-dirs)
+       (dir              'dirs)
+       ((and (not dir) hidden) 'hidden-files)
+       (t                'files))))
+#+end_src
+The =my-emacs-dired--get-filename-at-point= function is just a wrapper a
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-dired.el"
+  (require 'cl-lib)
 
+  (cl-defstruct my-emacs-dired-items
+      dirs hidden-dirs files hidden-files)
+
+  (defvar-local my-emacs-dired-cache nil)
+
+  (defun my-emacs-dired--get-line-at-pos ()
+    (buffer-substring (line-beginning-position)
+  		    (min (1+ (line-end-position)) (point-max)))
+  )
+
+  (defun my-emacs-dired--get-file-at-pos ()
+    (dired-get-filename nil t)
+  )
+
+  (defun my-emacs-dired--get-cat-at-pos (file)
+    (my-emacs-dired--category file)
+  )
+
+  (defun my-emacs-dired--clear-dir-contents ()
+    (interactive)
+    (save-excursion
+      (let ((inhibit-read-only t))
+      (goto-char (point-min))
+      (forward-line 1)
+      (while (not (eobp))
+        (delete-region (line-beginning-position)
+  		     (min (1+ (line-end-position)) (point-max)))))
+      )
+  )
+
+  (defun my-emacs-dired--collect ()
+    (interactive)
+    (let ( (dirs '())
+  	 (hidden-dirs '())
+  	 (files '())
+  	 (hidden-files '()))
+    (save-excursion
+      (goto-char (point-min))
+      (forward-line 1)
+      (while (not (eobp))
+        (let* ((raw-line-at-point (my-emacs-dired--get-line-at-pos))
+  	    (file-at-point      (my-emacs-dired--get-file-at-pos))
+  	    (category-at-point
+  	     (my-emacs-dired--get-cat-at-pos file-at-point)))
+  	(cond ((eq category-at-point 'dirs)
+  	       (push file-at-point dirs))
+  	      ((eq category-at-point 'hidden-dirs)
+  	       (push file-at-point hidden-dirs))
+  	      ((eq category-at-point 'files)
+  	       (push file-at-point files))
+  	      ((eq category-at-point 'hidden-files)
+  	       (push file-at-point hidden-files))
+  	      )
+  	(forward-line 1))))
+    (setq my-emacs-dired--cache
+  	(make-my-emacs-dired-items
+  	 :dirs (nreverse dirs)
+  	 :hidden-dirs (nreverse hidden-dirs)
+  	 :files (nreverse files)
+  	 :hidden-files (nreverse files)
+  	)))
+  )
+
+
+#+end_src
+**** Dired Declaration
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-dired.el"
+  (use-package dired
+    :ensure nil
+  )
+#+end_src
