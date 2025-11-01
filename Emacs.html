@@ -1,0 +1,953 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-11-01 Sat 12:58 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>My Emacs Configuration</title>
+<meta name="author" content="Chris Liourtas" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">My Emacs Configuration</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org7e3d504">Emacs</a>
+<ul>
+<li><a href="#org2305f3b">Early initialization of Emacs (<code>early-init.el</code>)</a></li>
+<li><a href="#orgdab15fa">The main initialization of Emacs (<code>init.el</code>)</a>
+<ul>
+<li><a href="#orgb3e7a53">User Options</a></li>
+<li><a href="#org25b6901">Variables</a></li>
+<li><a href="#orgada8114">Package Manager</a></li>
+</ul>
+</li>
+<li><a href="#org995e4d7">Core Functions (<code>my-emacs-functions.el</code>)</a>
+<ul>
+<li><a href="#org55f10b1"><span class="todo TODO">TODO</span> Vim Scrolling Mode</a></li>
+<li><a href="#orga023110"><span class="todo TODO">TODO</span> Load Package</a></li>
+</ul>
+</li>
+<li><a href="#org7266a3b">Libraries</a></li>
+<li><a href="#org888b52c">Packages</a>
+<ul>
+<li><a href="#org315a60a">General</a></li>
+<li><a href="#org172c936">Evil Mode</a></li>
+<li><a href="#org331ba58"><span class="todo TODO">TODO</span> Magit</a></li>
+<li><a href="#org5b64f7e"><span class="todo TODO">TODO</span> Dired</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7e3d504" class="outline-2">
+<h2 id="org7e3d504">Emacs</h2>
+<div class="outline-text-2" id="text-org7e3d504">
+<p>
+<b>Last export 2025-11-01 12:58:02 +0200 with 2640 words.</b>
+</p>
+</div>
+<div id="outline-container-org2305f3b" class="outline-3">
+<h3 id="org2305f3b">Early initialization of Emacs (<code>early-init.el</code>)</h3>
+<div class="outline-text-3" id="text-org2305f3b">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq package-enable-at-startup nil)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdab15fa" class="outline-3">
+<h3 id="orgdab15fa">The main initialization of Emacs (<code>init.el</code>)</h3>
+<div class="outline-text-3" id="text-orgdab15fa">
+</div>
+<div id="outline-container-orgb3e7a53" class="outline-4">
+<h4 id="orgb3e7a53">User Options</h4>
+<div class="outline-text-4" id="text-orgb3e7a53">
+<p>
+All of the user options are defined under the emacs group
+<code>my-emacs</code>. A group in emacs-lisp is just a way to organize metadata
+for Emacs' customization system. By modifying these values via <code>M-x
+customize</code> the user can easily manipulate My-Emacs' behavior. Things
+that can be modified are:
+</p>
+<ul class="org-ul">
+<li>Theme-Families.</li>
+<li>Enabled/Disabled Features.</li>
+<li>UI (User Interface).</li>
+</ul>
+<p>
+To define the group we use the <code>defgroup</code> macro.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defgroup my-emacs nil
+ "User options for my-emacs."
+  :group 'emacs
+)
+</pre>
+</div>
+</div>
+<ul class="org-ul">
+<li><a id="orgf939234"></a>Theme Option<br />
+<div class="outline-text-5" id="text-orgf939234">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-load-theme-family 'nano
+  "Set of themes to load."
+  :group 'my-emacs
+  :type '(choice :tag "Set of themes to load" :value 'nano
+         )
+)
+</pre>
+</div>
+</div>
+</li>
+<li><a id="orgef4a8b7"></a>User Interface Options<br />
+<ul class="org-ul">
+<li><a id="org6172725"></a>Dired Order Option<br />
+<div class="outline-text-6" id="text-org6172725">
+<p>
+This is better explained in the Dired section.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-dired-order '(dirs hidden-dirs files hidden-files)
+  "The order of which dired displays its items.
+Each element should be one of the following symbols:
+- `dirs` : visible directories
+- `hidden-dirs` : hidden directories (starting with '.')
+- `files` : visible files
+- `hidden-files` : hidden files (starting with '.')"
+  :group 'my-emacs
+  :type '(repeat
+          (choice (const dirs)
+                  (const hidden-dirs)
+                  (const files)
+                  (const hidden-files)))
+)
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org9b450ce"></a>Tool-Bar Option<br />
+<div class="outline-text-6" id="text-org9b450ce">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-tool-bar -1
+  "If non-nil, enable `tool-bar-mode`."
+  :group 'my-emacs
+  :type 'boolean
+)
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org384427c"></a>Menu-Bar Option<br />
+<div class="outline-text-6" id="text-org384427c">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-menu-bar -1
+  "If non-nil, enable `menu-bar-mode`."
+  :group 'my-emacs
+  :type 'boolean
+)
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org3c49ff3"></a>Scroll-Bar Option<br />
+<div class="outline-text-6" id="text-org3c49ff3">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-scroll-bar -1
+  "If non-nil, enable `scroll-bar-mode`."
+  :group 'my-emacs
+  :type 'boolean
+)
+</pre>
+</div>
+</div>
+</li>
+</ul>
+</li>
+<li><a id="org681a112"></a>Feature Options<br />
+<ul class="org-ul">
+<li><a id="orgf2049cb"></a>Vim Scrolling Option<br />
+<div class="outline-text-6" id="text-orgf2049cb">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-vim-scrolling t
+  "If non-nil, enable smooth scrolling, like vim."
+   :group 'my-emacs
+   :type 'boolean
+)
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org55c6d56"></a>Evil Mode Option<br />
+<div class="outline-text-6" id="text-org55c6d56">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-evil t
+    "If non-nil, enable evil mode for vim emulation."
+     :group 'my-emacs
+     :type 'boolean
+)
+</pre>
+</div>
+</div>
+</li>
+<li><a id="orgddc5529"></a>Rust Language Support<br />
+<div class="outline-text-6" id="text-orgddc5529">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-rust t
+  "If non-nil, enable support for Rust."
+  :group 'my-emacs
+  :type 'boolean
+)
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org8b5cc56"></a>Ocaml Language Support<br />
+<div class="outline-text-6" id="text-org8b5cc56">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-ocaml t
+  "If non-nil, enable support for Ocaml."
+  :group 'my-emacs
+  :type 'boolean
+)
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org2659db5"></a>Haskell Language Support<br />
+<div class="outline-text-6" id="text-org2659db5">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-haskell t
+  "If non-nil, enable support for Haskell."
+  :group 'my-emacs
+  :type 'boolean
+)
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org858918c"></a>C/C++ Language Support<br />
+<div class="outline-text-6" id="text-org858918c">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-c-c++ t
+  "If non-nil, enable support for C/C++."
+  :group 'my-emacs
+  :type 'boolean
+)
+</pre>
+</div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="outline-container-org25b6901" class="outline-4">
+<h4 id="org25b6901">Variables</h4>
+<div class="outline-text-4" id="text-org25b6901">
+<p>
+Directory that contains all of the <code>use-package</code> declarations.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defvar my-emacs-packages-dir
+  (concat user-emacs-directory "my-emacs-packages/")
+  "Directory that contains all of the `USE-PACKAGE` declarations."
+)
+</pre>
+</div>
+<p>
+Ordered priority of packages that must be loaded.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defvar my-emacs-packages-priority
+  '("my-emacs-general.el")
+  "Basenames or regexps of packages files to load first (ordered)."
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgada8114" class="outline-4">
+<h4 id="orgada8114">Package Manager</h4>
+<div class="outline-text-4" id="text-orgada8114">
+<p>
+This emacs configuration uses <a href="https://github.com/progfolio/elpaca">elpaca</a> as its package manager (for
+now). I have been thinking of switching to a manual approach but for
+now this will do. This will clone elpaca into your <code>user-emacs-directory</code> under
+the elpaca subdirectory, clone it and finally activate it.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defvar elpaca-installer-version 0.11)
+(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+                              :ref nil :depth 1 :inherit ignore
+                              :files (:defaults "elpaca-test.el" (:exclude "extensions"))
+                              :build (:not elpaca--activate-package)))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+       (build (expand-file-name "elpaca/" elpaca-builds-directory))
+       (order (cdr elpaca-order))
+       (default-directory repo))
+  (add-to-list 'load-path (if (file-exists-p build) build repo))
+  (unless (file-exists-p repo)
+    (make-directory repo t)
+    (when (&lt;= emacs-major-version 28) (require 'subr-x))
+    (condition-case-unless-debug err
+        (if-let* ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+                  ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
+                                                  ,@(when-let* ((depth (plist-get order :depth)))
+                                                      (list (format "--depth=%d" depth) "--no-single-branch"))
+                                                  ,(plist-get order :repo) ,repo))))
+                  ((zerop (call-process "git" nil buffer t "checkout"
+                                        (or (plist-get order :ref) "--"))))
+                  (emacs (concat invocation-directory invocation-name))
+                  ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+                                        "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+                  ((require 'elpaca))
+                  ((elpaca-generate-autoloads "elpaca" repo)))
+            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
+          (error "%s" (with-current-buffer buffer (buffer-string))))
+      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
+  (unless (require 'elpaca-autoloads nil t)
+    (require 'elpaca)
+    (elpaca-generate-autoloads "elpaca" repo)
+    (let ((load-source-file-function nil)) (load "./elpaca-autoloads"))))
+(add-hook 'after-init-hook #'elpaca-process-queues)
+(elpaca `(,@elpaca-order))
+</pre>
+</div>
+<p>
+Then I enable use-package
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(elpaca elpaca-use-package
+  (elpaca-use-package-mode))
+</pre>
+</div>
+<p>
+I use use-package for declaratively configuring emacs
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package emacs
+  :ensure nil
+  :init
+  (add-to-list 'load-path (expand-file-name "core/" user-emacs-directory))
+  (add-to-list 'load-path (expand-file-name "my-emacs-packages/" user-emacs-directory))
+  :config
+  (load "my-emacs-functions")
+  (tool-bar-mode my-emacs-tool-bar)
+  (menu-bar-mode my-emacs-menu-bar)
+  (scroll-bar-mode my-emacs-scroll-bar)
+  (my-emacs-vim-scrolling-mode my-emacs-vim-scrolling)
+  (my-emacs-load-packages)
+)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org995e4d7" class="outline-3">
+<h3 id="org995e4d7">Core Functions (<code>my-emacs-functions.el</code>)</h3>
+<div class="outline-text-3" id="text-org995e4d7">
+<p>
+This file contains functions that:
+</p>
+<ul class="org-ul">
+<li>Have no dependencies.</li>
+<li>Do not warrant a creation of a library and/or mode.</li>
+<li>May or not be moved as a library and/or mode later.</li>
+</ul>
+</div>
+<div id="outline-container-org55f10b1" class="outline-4">
+<h4 id="org55f10b1"><span class="todo TODO">TODO</span> Vim Scrolling Mode</h4>
+<div class="outline-text-4" id="text-org55f10b1">
+<p>
+This is not a mode, its a function. It might be a good idea to make it
+a minor mode later, so for now its marked as TODO.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun my-emacs-vim-scrolling-mode (enable)
+  "Enable or disable 'vim-like' smooth scrolling depending on ENABLE."
+  (if enable (progn
+               (setq scroll-step 1)
+               (setq scroll-margin 1)
+               (setq scroll-conservatively 9999)))
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga023110" class="outline-4">
+<h4 id="orga023110"><span class="todo TODO">TODO</span> Load Package</h4>
+<div class="outline-text-4" id="text-orga023110">
+<p>
+Loading packages should be done in a fixed order since packages may depend on each other.
+For example <code>general.el</code> should be loaded before <code>magit.el</code> since the latter depends on the former.
+This code may look complicated so a description is warranted:
+</p>
+<ol class="org-ol">
+<li>First define a helper function <code>my-emacs--priority-match-p</code>.
+This function simply takes two strings <code>`FILE`</code> which is a
+full path to a file and <code>`PATTERN`</code> which is a regex string
+or just the file name.
+<ul class="org-ul">
+<li>If <code>`FILE`</code> is equal to <code>`PATTERN`</code> return <code>`TRUE`</code></li>
+</ul></li>
+<li><p>
+Now define the loader <code>my-emacs-load-packages</code>. Declare
+variables:
+</p>
+<ul class="org-ul">
+<li><code>all</code> List of absolute paths to every <code>.el</code> file inside <code>my-emacs-packages-dir</code>.</li>
+<li><code>seen</code> A hash-table data structure created by <code>make-hash-table</code>.</li>
+<li><code>head</code> The <b>ORDERED</b> list of priority files. Initialized by
+looping <code>my-emacs-packages-priority</code> and <code>all</code>. If a string (file name)
+defined there is not in <code>seen</code> yet and matches a string in all its a
+package that needs priority.</li>
+<li><code>tail</code> The possibly unordered list of non-prioritized files. Initialized
+by being the rest "seen" files.</li>
+<li><code>files</code> Concats the <code>head</code> and <code>tail</code>.</li>
+</ul>
+<p>
+Now everything is ordered.
+</p></li>
+<li>Loop through <code>files</code>, load everything.</li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun my-emacs--priority-match-p (file pattern)
+  (let ((name (file-name-nondirectory file)))
+    (or (string= name pattern)
+        (string-match-p pattern name))))
+
+(defun my-emacs-load-packages (&amp;optional nosort)
+  "Load all '.el' files in `MY-EMACS-PACKAGES-DIR` honoring,
+`MY-EMACS-PACKAGES-PRIORITY`.If NOSORT is non-nil, do not sort the
+non-priority tail (raw FS order)."
+  (let* ((all (directory-files my-emacs-packages-dir t "\\.el\\'" nosort))
+         (seen (make-hash-table :test 'equal))
+         (head (cl-loop for pat in my-emacs-packages-priority append
+                        (cl-remove-if-not
+                         (lambda (f)
+                           (and (my-emacs--priority-match-p f pat)
+                                (not (gethash f seen))
+                                (prog1 t (puthash f t seen))))
+                         all)))
+         (tail (cl-remove-if (lambda (f) (gethash f seen)) all))
+         (files (nconc head tail)))
+    (dolist (f files)
+      (condition-case err
+          (load f nil 'nomessage)
+        (error
+         (message "[my-emacs] Failed to load %s: %s"
+                  (file-name-nondirectory f) err))))))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org7266a3b" class="outline-3">
+<h3 id="org7266a3b">Libraries</h3>
+</div>
+<div id="outline-container-org888b52c" class="outline-3">
+<h3 id="org888b52c">Packages</h3>
+<div class="outline-text-3" id="text-org888b52c">
+</div>
+<div id="outline-container-org315a60a" class="outline-4">
+<h4 id="org315a60a">General</h4>
+<div class="outline-text-4" id="text-org315a60a">
+<p>
+For key-binding management I use <a href="https://github.com/noctuid/general.el">general</a>. It provides many
+useful features for defining key-bindings. I mostly take advantage
+of the <code>:general</code> keyword in use-package that comes with installing it.
+Notice the <code>(elpaca-wait)</code> after the package declaration.
+</p>
+<ul class="org-ul">
+<li>TODO I should probably find a way to use <code>general-create-definer</code> and then use it on use-package.
+perhaps create my own <code>use-package</code> keyword? This would allow for global usage of an "evil-leader"-like
+key and perhaps further customization for the user.</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package general
+  :ensure (:wait t)
+  :demand t
+  :config
+  (general-auto-unbind-keys)
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org172c936" class="outline-4">
+<h4 id="org172c936">Evil Mode</h4>
+<div class="outline-text-4" id="text-org172c936">
+<p>
+<a href="https://github.com/emacs-evil/evil">Evil</a> provides a vim-motions emulation layer on top of emacs. This package
+should only be loaded if <code>my-emacs-evil</code> variable is non-nil.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package evil
+  :ensure t
+  :after general
+  :if my-emacs-evil
+  :custom (evil-want-keybinding nil)
+  (evil-want-integration t)
+  (evil-want-minibuffer t) 
+  :config
+  (evil-mode)
+)
+</pre>
+</div>
+<p>
+<a href="https://github.com/emacs-evil/evil-collection">Evil-collection</a> is a collection of evil bindings for the parts of Emacs that
+evil does not cover properly by default.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package evil-collection
+  :ensure t
+  :after evil
+  :config
+  (evil-collection-init)
+)
+</pre>
+</div>
+<p>
+<a href="https://github.com/redguardtoo/evil-nerd-commenter">Evil-Nerd-Commenter</a> is just a quick and fancy way to comment code. It comes
+with a few functions (no modes), but I just use <code>evilnc-comment-or-uncomment-lines</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package evil-nerd-commenter
+  :ensure t
+  :after evil
+  :general
+  (:keymaps 'evil-visual-state-map
+            "gcc" 'evilnc-comment-or-uncomment-lines)
+  (:keymaps 'evil-normal-state-map
+            "gcc" 'evilnc-comment-or-uncomment-lines)
+)
+</pre>
+</div>
+<p>
+<a href="https://github.com/emacs-evil/evil-surround">Evil-Surround</a> is the evil equivelant of <a href="https://github.com/tpope/vim-surround">surround.vim</a>.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package evil-surround
+  :ensure t
+  :after evil
+  :hook evil-mode
+)
+</pre>
+</div>
+<p>
+<a href="https://github.com/emacsmirror/undo-fu">Undo-Fu</a> provides undo-redo for Emacs.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package undo-fu
+  :ensure t
+  :after evil
+  :custom
+  (evil-undo-system 'undo-fu)
+)
+</pre>
+</div>
+<p>
+<a href="https://github.com/gabesoft/evil-mc">Evil-mc</a> provides multi-cursor functionallity for emacs-evil.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package evil-mc
+  :ensure t
+  :after evil
+  :hook
+  evil-mode
+  :general
+  (:keymaps 'evil-visual-state-map
+            ",a" 'evil-mc-make-all-cursors
+            )
+  (:keymaps 'evil-normal-state-map
+            ",d" 'evil-mc-undo-all-cursors
+            ",r" 'evil-mc-resume-cursors
+            ",p" 'evil-mc-pause-cursors
+            ",m" 'evil-mc-make-cursor-here
+            )
+
+  (:keymaps 'evil-insert-state-map
+            "M-, a" 'evil-mc-make-all-cursors
+            "M-, d" 'evil-mc-undo-all-cursors
+            "M-, r" 'evil-mc-resume-cursors
+            "M-, p" 'evil-mc-pause-cursors
+            "M-, m" 'evil-mc-make-cursor-here
+            )
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org331ba58" class="outline-4">
+<h4 id="org331ba58"><span class="todo TODO">TODO</span> Magit</h4>
+<div class="outline-text-4" id="text-org331ba58">
+<p>
+<a href="https://github.com/magit/magit">Magit</a> is a wrapper around git. Notice the dependency on transient,
+perhaps it should be enabled globally as a library from source so its marked as TODO.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package transient
+  :ensure t
+  )
+
+(use-package magit
+  :ensure t
+  :general
+  (:prefix "C-c m"
+      "g" 'magit-status
+      "i" 'magit-init
+      "c" 'magit-clone)
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5b64f7e" class="outline-4">
+<h4 id="org5b64f7e"><span class="todo TODO">TODO</span> Dired</h4>
+<div class="outline-text-4" id="text-org5b64f7e">
+<p>
+Dired (Directory Editor) is the built-in directory manager
+in Emacs (it predates it!). The desired functionallity is
+as follows:
+</p>
+<ul class="org-ul">
+<li>Display items in the following order:
+<ol class="org-ol">
+<li>Directories</li>
+<li>Hidden Directories (If toggled)</li>
+<li>Files</li>
+<li>Hidden Files (If toggled)</li>
+</ol></li>
+<li>Toggle information of files/directories in region/cursor.</li>
+<li>Toggle preview of files/directories in region/cursor.</li>
+<li>Directory Functionallity
+<ul class="org-ul">
+<li>Move</li>
+<li>Copy</li>
+<li>Rename</li>
+<li>Mkdir</li>
+<li>Touch</li>
+<li>Delete</li>
+<li>Compress</li>
+<li>Decompress</li>
+<li>Encrypt with key</li>
+<li>Decrypt with key</li>
+<li>Open in application</li>
+<li>Execute</li>
+</ul></li>
+</ul>
+<p>
+This is quite complex so its compartmentalized into different headings:
+</p>
+</div>
+<ul class="org-ul">
+<li><a id="org0a95e1a"></a>Sorting Functionallity<br />
+<div class="outline-text-5" id="text-org0a95e1a">
+<p>
+The <code>my-emacs--dired-category</code> function returns the category of an item
+as defined in <code>`my-emacs-dired-order`</code>. Note that this counts "." and ".."
+as <code>`hidden-files`</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun my-emacs-dired--category (filename)
+  (let* ((base (file-name-nondirectory filename))
+         (hidden (and base (string-prefix-p "." base)))
+         (dir (file-directory-p filename)))
+    (cond
+     ((and dir hidden) 'hidden-dirs)
+     (dir              'dirs)
+     ((and (not dir) hidden) 'hidden-files)
+     (t                'files))))
+</pre>
+</div>
+<p>
+The <code>my-emacs-dired--get-filename-at-point</code> function is just a wrapper a
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(require 'cl-lib)
+
+(cl-defstruct my-emacs-dired-items
+    dirs hidden-dirs files hidden-files)
+
+(defvar-local my-emacs-dired-cache nil)
+
+(defun my-emacs-dired--get-line-at-pos ()
+  (buffer-substring (line-beginning-position)
+                    (min (1+ (line-end-position)) (point-max)))
+)
+
+(defun my-emacs-dired--get-file-at-pos ()
+  (dired-get-filename nil t)
+)
+
+(defun my-emacs-dired--get-cat-at-pos (file)
+  (my-emacs-dired--category file)
+)
+
+(defun my-emacs-dired--clear-dir-contents ()
+  (interactive)
+  (save-excursion
+    (let ((inhibit-read-only t))
+    (goto-char (point-min))
+    (forward-line 1)
+    (while (not (eobp))
+      (delete-region (line-beginning-position)
+                     (min (1+ (line-end-position)) (point-max)))))
+    )
+)
+
+(defun my-emacs-dired--collect ()
+  (interactive)
+  (let ( (dirs '())
+         (hidden-dirs '())
+         (files '())
+         (hidden-files '()))
+  (save-excursion
+    (goto-char (point-min))
+    (forward-line 1)
+    (while (not (eobp))
+      (let* ((raw-line-at-point (my-emacs-dired--get-line-at-pos))
+            (file-at-point      (my-emacs-dired--get-file-at-pos))
+            (category-at-point
+             (my-emacs-dired--get-cat-at-pos file-at-point)))
+        (cond ((eq category-at-point 'dirs)
+               (push file-at-point dirs))
+              ((eq category-at-point 'hidden-dirs)
+               (push file-at-point hidden-dirs))
+              ((eq category-at-point 'files)
+               (push file-at-point files))
+              ((eq category-at-point 'hidden-files)
+               (push file-at-point hidden-files))
+              )
+        (forward-line 1))))
+  (setq my-emacs-dired--cache
+        (make-my-emacs-dired-items
+         :dirs (nreverse dirs)
+         :hidden-dirs (nreverse hidden-dirs)
+         :files (nreverse files)
+         :hidden-files (nreverse files)
+        )))
+)
+
+
+</pre>
+</div>
+</div>
+</li>
+<li><a id="orgc7a5e1d"></a>Dired Declaration<br />
+<div class="outline-text-5" id="text-orgc7a5e1d">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package dired
+  :ensure nil
+)
+</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Chris Liourtas</p>
+<p class="date">Created: 2025-11-01 Sat 12:58</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
