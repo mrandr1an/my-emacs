@@ -277,6 +277,8 @@ This code may look complicated so a description is warranted:
            (message "[my-emacs] Failed to load %s: %s"
                     (file-name-nondirectory f) err))))))
 #+end_src
+** Libraries
+** Packages
 *** General
 For key-binding management I use [[https://github.com/noctuid/general.el][general]]. It provides many
 useful features for defining key-bindings. I mostly take advantage
@@ -291,6 +293,88 @@ Notice the =(elpaca-wait)= after the package declaration.
     :demand t
     :config
     (general-auto-unbind-keys)
+  )
+#+end_src
+*** Evil Mode
+[[https://github.com/emacs-evil/evil][Evil]] provides a vim-motions emulation layer on top of emacs. This package
+should only be loaded if =my-emacs-evil= variable is non-nil.
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-evil.el" :mkdirp yes
+  (use-package evil
+    :ensure t
+    :after general
+    :if my-emacs-evil
+    :custom (evil-want-keybinding nil)
+    (evil-want-integration t)
+    (evil-want-minibuffer t) 
+    :config
+    (evil-mode)
+  )
+#+end_src
+[[https://github.com/emacs-evil/evil-collection][Evil-collection]] is a collection of evil bindings for the parts of Emacs that
+evil does not cover properly by default.
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-evil.el"
+  (use-package evil-collection
+    :ensure t
+    :after evil
+    :config
+    (evil-collection-init)
+  )
+#+end_src
+[[https://github.com/redguardtoo/evil-nerd-commenter][Evil-Nerd-Commenter]] is just a quick and fancy way to comment code. It comes
+with a few functions (no modes), but I just use =evilnc-comment-or-uncomment-lines=.
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-evil.el"
+  (use-package evil-nerd-commenter
+    :ensure t
+    :after evil
+    :general
+    (:keymaps 'evil-visual-state-map
+  	    "gcc" 'evilnc-comment-or-uncomment-lines)
+    (:keymaps 'evil-normal-state-map
+  	    "gcc" 'evilnc-comment-or-uncomment-lines)
+  )
+#+end_src
+[[https://github.com/emacs-evil/evil-surround][Evil-Surround]] is the evil equivelant of [[https://github.com/tpope/vim-surround][surround.vim]].
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-evil.el"
+  (use-package evil-surround
+    :ensure t
+    :after evil
+    :hook evil-mode
+  )
+#+end_src
+[[https://github.com/emacsmirror/undo-fu][Undo-Fu]] provides undo-redo for Emacs.
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-evil.el"
+  (use-package undo-fu
+    :ensure t
+    :after evil
+    :custom
+    (evil-undo-system 'undo-fu)
+  )
+#+end_src
+[[https://github.com/gabesoft/evil-mc][Evil-mc]] provides multi-cursor functionallity for emacs-evil.
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-evil.el"
+  (use-package evil-mc
+    :ensure t
+    :after evil
+    :hook
+    evil-mode
+    :general
+    (:keymaps 'evil-visual-state-map
+  	    ",a" 'evil-mc-make-all-cursors
+  	    )
+    (:keymaps 'evil-normal-state-map
+  	    ",d" 'evil-mc-undo-all-cursors
+  	    ",r" 'evil-mc-resume-cursors
+  	    ",p" 'evil-mc-pause-cursors
+  	    ",m" 'evil-mc-make-cursor-here
+  	    )
+
+    (:keymaps 'evil-insert-state-map
+  	    "M-, a" 'evil-mc-make-all-cursors
+  	    "M-, d" 'evil-mc-undo-all-cursors
+  	    "M-, r" 'evil-mc-resume-cursors
+  	    "M-, p" 'evil-mc-pause-cursors
+  	    "M-, m" 'evil-mc-make-cursor-here
+  	    )
   )
 #+end_src
 
