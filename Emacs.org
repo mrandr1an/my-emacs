@@ -13,6 +13,21 @@
 #+end_src
 ** The main initialization of Emacs (=init.el=)
 *** User Options
+All of the user options are defined under the emacs group
+=my-emacs=. A group in emacs-lisp is just a way to organize metadata
+for Emacs' customization system. By modifying these values via =M-x
+customize= the user can easily manipulate My-Emacs' behavior. Things
+that can be modified are:
+    - Theme-Families.
+    - Enabled/Disabled Features.
+    - UI (User Interface).
+To define the group we use the =defgroup= macro.
+#+begin_src emacs-lisp :tangle "init.el"
+  (defgroup my-emacs nil
+   "User options for my-emacs."
+    :group 'emacs
+  )
+#+end_src
 **** Theme Option
 **** User Interface Options
 ***** Dired Order Option
