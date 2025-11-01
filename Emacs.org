@@ -57,6 +57,13 @@ This is better explained in the Dired section.
   )
 #+end_src
 ***** Tool-Bar Option
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-tool-bar -1
+    "If non-nil, enable `tool-bar-mode`."
+    :group 'my-emacs
+    :type 'boolean
+  )
+#+end_src
 ***** Menu-Bar Option
 ***** Scroll-Bar Option
 **** Feature Options
