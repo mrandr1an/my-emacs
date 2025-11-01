@@ -194,4 +194,87 @@ Then I enable use-package
     (elpaca elpaca-use-package
       (elpaca-use-package-mode))
 #+end_src
+I use use-package for declaratively configuring emacs
+#+begin_src emacs-lisp :tangle "init.el"
+  (use-package emacs
+    :ensure nil
+    :init
+    (add-to-list 'load-path (expand-file-name "core/" user-emacs-directory))
+    (add-to-list 'load-path (expand-file-name "my-emacs-packages/" user-emacs-directory))
+    :config
+    (load "my-emacs-functions")
+    (tool-bar-mode my-emacs-tool-bar)
+    (menu-bar-mode my-emacs-menu-bar)
+    (scroll-bar-mode my-emacs-scroll-bar)
+    (my-emacs-vim-scrolling-mode my-emacs-vim-scrolling)
+    (my-emacs-load-packages)
+  )
+#+end_src
+** Core Functions (=my-emacs-functions.el=)
+This file contains functions that:
+  - Have no dependencies.
+  - Do not warrant a creation of a library and/or mode.
+  - May or not be moved as a library and/or mode later.
+*** TODO Vim Scrolling Mode
+This is not a mode, its a function. It might be a good idea to make it
+a minor mode later, so for now its marked as TODO.
+#+begin_src emacs-lisp :tangle "core/my-emacs-functions.el" :mkdirp yes
+  (defun my-emacs-vim-scrolling-mode (enable)
+    "Enable or disable 'vim-like' smooth scrolling depending on ENABLE."
+    (if enable (progn
+  	       (setq scroll-step 1)
+  	       (setq scroll-margin 1)
+  	       (setq scroll-conservatively 9999)))
+  )
+#+end_src
+*** TODO Load Package
+Loading packages should be done in a fixed order since packages may depend on each other.
+For example =general.el= should be loaded before =magit.el= since the latter depends on the former.
+This code may look complicated so a description is warranted:
+ 1. First define a helper function =my-emacs--priority-match-p=.
+   This function simply takes two strings =`FILE`= which is a
+   full path to a file and =`PATTERN`= which is a regex string
+   or just the file name.
+    - If =`FILE`= is equal to =`PATTERN`= return =`TRUE`=
+ 2. Now define the loader =my-emacs-load-packages=. Declare
+   variables:
+    - =all= List of absolute paths to every =.el= file inside =my-emacs-packages-dir=.
+    - =seen= A hash-table data structure created by =make-hash-table=.
+    - =head= The *ORDERED* list of priority files. Initialized by
+      looping =my-emacs-packages-priority= and =all=. If a string (file name)
+      defined there is not in =seen= yet and matches a string in all its a
+      package that needs priority. 
+    - =tail= The possibly unordered list of non-prioritized files. Initialized
+      by being the rest "seen" files.
+    - =files= Concats the =head= and =tail=.
+    Now everything is ordered.
+ 3. Loop through =files=, load everything.
+#+begin_src emacs-lisp :tangle "core/my-emacs-functions.el"
+  (defun my-emacs--priority-match-p (file pattern)
+    (let ((name (file-name-nondirectory file)))
+      (or (string= name pattern)
+  	(string-match-p pattern name))))
+
+  (defun my-emacs-load-packages (&optional nosort)
+    "Load all '.el' files in `MY-EMACS-PACKAGES-DIR` honoring,
+  `MY-EMACS-PACKAGES-PRIORITY`.If NOSORT is non-nil, do not sort the
+  non-priority tail (raw FS order)."
+    (let* ((all (directory-files my-emacs-packages-dir t "\\.el\\'" nosort))
+           (seen (make-hash-table :test 'equal))
+           (head (cl-loop for pat in my-emacs-packages-priority append
+                          (cl-remove-if-not
+                           (lambda (f)
+                             (and (my-emacs--priority-match-p f pat)
+                                  (not (gethash f seen))
+                                  (prog1 t (puthash f t seen))))
+                           all)))
+           (tail (cl-remove-if (lambda (f) (gethash f seen)) all))
+           (files (nconc head tail)))
+      (dolist (f files)
+        (condition-case err
+            (load f nil 'nomessage)
+          (error
+           (message "[my-emacs] Failed to load %s: %s"
+                    (file-name-nondirectory f) err))))))
+#+end_src
 
