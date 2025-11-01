@@ -39,6 +39,23 @@ To define the group we use the =defgroup= macro.
 #+end_src
 **** User Interface Options
 ***** Dired Order Option
+This is better explained in the Dired section.
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-dired-order '(dirs hidden-dirs files hidden-files)
+    "The order of which dired displays its items.
+  Each element should be one of the following symbols:
+  - `dirs` : visible directories
+  - `hidden-dirs` : hidden directories (starting with '.')
+  - `files` : visible files
+  - `hidden-files` : hidden files (starting with '.')"
+    :group 'my-emacs
+    :type '(repeat
+  	  (choice (const dirs)
+  		  (const hidden-dirs)
+  		  (const files)
+  		  (const hidden-files)))
+  )
+#+end_src
 ***** Tool-Bar Option
 ***** Menu-Bar Option
 ***** Scroll-Bar Option
