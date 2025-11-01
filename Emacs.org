@@ -129,4 +129,19 @@ This is better explained in the Dired section.
     :type 'boolean
   )
 #+end_src
+*** Variables
+Directory that contains all of the =use-package= declarations.
+#+begin_src emacs-lisp :tangle "init.el"
+  (defvar my-emacs-packages-dir
+    (concat user-emacs-directory "my-emacs-packages/")
+    "Directory that contains all of the `USE-PACKAGE` declarations."
+  )
+#+end_src
+Ordered priority of packages that must be loaded.
+#+begin_src emacs-lisp :tangle "init.el"
+  (defvar my-emacs-packages-priority
+    '("my-emacs-general.el")
+    "Basenames or regexps of packages files to load first (ordered)."
+  )
+#+end_src
 
