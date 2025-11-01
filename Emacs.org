@@ -11,4 +11,19 @@
 #+begin_src emacs-lisp :tangle "early-init.el"
   (setq package-enable-at-startup nil)
 #+end_src
+** The main initialization of Emacs (=init.el=)
+*** User Options
+**** Theme Option
+**** User Interface Options
+***** Dired Order Option
+***** Tool-Bar Option
+***** Menu-Bar Option
+***** Scroll-Bar Option
+**** Feature Options
+***** Vim Scrolling Option
+***** Evil Mode Option
+***** Rust Language Support
+***** Ocaml Language Support
+***** Haskell Language Support
+***** C/C++ Language Support
 
