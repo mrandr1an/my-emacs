@@ -73,6 +73,13 @@ This is better explained in the Dired section.
   )
 #+end_src
 ***** Scroll-Bar Option
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-scroll-bar -1
+    "If non-nil, enable `scroll-bar-mode`."
+    :group 'my-emacs
+    :type 'boolean
+  )
+#+end_src
 **** Feature Options
 ***** Vim Scrolling Option
 ***** Evil Mode Option
