@@ -277,4 +277,20 @@ This code may look complicated so a description is warranted:
            (message "[my-emacs] Failed to load %s: %s"
                     (file-name-nondirectory f) err))))))
 #+end_src
+*** General
+For key-binding management I use [[https://github.com/noctuid/general.el][general]]. It provides many
+useful features for defining key-bindings. I mostly take advantage
+of the =:general= keyword in use-package that comes with installing it.
+Notice the =(elpaca-wait)= after the package declaration.
+ - TODO I should probably find a way to use =general-create-definer= and then use it on use-package.
+   perhaps create my own =use-package= keyword? This would allow for global usage of an "evil-leader"-like
+   key and perhaps further customization for the user.
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-general.el" :mkdirp yes
+  (use-package general
+    :ensure (:wait t)
+    :demand t
+    :config
+    (general-auto-unbind-keys)
+  )
+#+end_src
 
