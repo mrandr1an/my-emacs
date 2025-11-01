@@ -377,4 +377,21 @@ with a few functions (no modes), but I just use =evilnc-comment-or-uncomment-lin
   	    )
   )
 #+end_src
+*** TODO Magit
+[[https://github.com/magit/magit][Magit]] is a wrapper around git. Notice the dependency on transient,
+perhaps it should be enabled globally as a library from source so its marked as TODO.
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-magit.el" :mkdirp yes
+  (use-package transient
+    :ensure t
+    )
+
+  (use-package magit
+    :ensure t
+    :general
+    (:prefix "C-c m"
+        "g" 'magit-status
+        "i" 'magit-init
+        "c" 'magit-clone)
+  )
+#+end_src
 
