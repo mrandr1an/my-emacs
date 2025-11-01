@@ -114,5 +114,12 @@ This is better explained in the Dired section.
   )
 #+end_src
 ***** Haskell Language Support
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-haskell t
+    "If non-nil, enable support for Haskell."
+    :group 'my-emacs
+    :type 'boolean
+  )
+#+end_src
 ***** C/C++ Language Support
 
