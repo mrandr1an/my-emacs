@@ -98,6 +98,13 @@ This is better explained in the Dired section.
   )
 #+end_src
 ***** Rust Language Support
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-rust t
+    "If non-nil, enable support for Rust."
+    :group 'my-emacs
+    :type 'boolean
+  )
+#+end_src
 ***** Ocaml Language Support
 ***** Haskell Language Support
 ***** C/C++ Language Support
