@@ -65,6 +65,13 @@ This is better explained in the Dired section.
   )
 #+end_src
 ***** Menu-Bar Option
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-menu-bar -1
+    "If non-nil, enable `menu-bar-mode`."
+    :group 'my-emacs
+    :type 'boolean
+  )
+#+end_src
 ***** Scroll-Bar Option
 **** Feature Options
 ***** Vim Scrolling Option
