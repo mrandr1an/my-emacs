@@ -122,4 +122,11 @@ This is better explained in the Dired section.
   )
 #+end_src
 ***** C/C++ Language Support
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-c-c++ t
+    "If non-nil, enable support for C/C++."
+    :group 'my-emacs
+    :type 'boolean
+  )
+#+end_src
 
