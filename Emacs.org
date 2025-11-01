@@ -82,6 +82,13 @@ This is better explained in the Dired section.
 #+end_src
 **** Feature Options
 ***** Vim Scrolling Option
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-vim-scrolling t
+    "If non-nil, enable smooth scrolling, like vim."
+     :group 'my-emacs
+     :type 'boolean
+  )
+#+end_src
 ***** Evil Mode Option
 ***** Rust Language Support
 ***** Ocaml Language Support
