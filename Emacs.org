@@ -7,4 +7,8 @@
 
 * Emacs
 *Last export {{{latest-export-date}}} with {{{word-count}}} words.*
+** Early initialization of Emacs (=early-init.el=)
+#+begin_src emacs-lisp :tangle "early-init.el"
+  (setq package-enable-at-startup nil)
+#+end_src
 
