@@ -90,6 +90,13 @@ This is better explained in the Dired section.
   )
 #+end_src
 ***** Evil Mode Option
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-evil t
+      "If non-nil, enable evil mode for vim emulation."
+       :group 'my-emacs
+       :type 'boolean
+  )
+#+end_src
 ***** Rust Language Support
 ***** Ocaml Language Support
 ***** Haskell Language Support
