@@ -106,6 +106,13 @@ This is better explained in the Dired section.
   )
 #+end_src
 ***** Ocaml Language Support
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-ocaml t
+    "If non-nil, enable support for Ocaml."
+    :group 'my-emacs
+    :type 'boolean
+  )
+#+end_src
 ***** Haskell Language Support
 ***** C/C++ Language Support
 
