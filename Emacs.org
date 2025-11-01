@@ -29,6 +29,14 @@ To define the group we use the =defgroup= macro.
   )
 #+end_src
 **** Theme Option
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-load-theme-family 'nano
+    "Set of themes to load."
+    :group 'my-emacs
+    :type '(choice :tag "Set of themes to load" :value 'nano
+  	 )
+  )
+#+end_src
 **** User Interface Options
 ***** Dired Order Option
 ***** Tool-Bar Option
