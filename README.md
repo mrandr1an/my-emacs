@@ -56,7 +56,10 @@ Clang is a complete toolchain that also comes with language implementations, so:
 
 The `clang-tools-extra` package should provide the clangd LSP server.
 #### Python
-  idek 
+Python is already installed on your system (probably).So just install pip
+```bash
+sudo dnf install pip
+```
 #### LaTeX
 For installing latex I do:
 ```bash
