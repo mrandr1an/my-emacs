@@ -8,8 +8,19 @@
 * Emacs
 *Last export {{{latest-export-date}}} with {{{word-count}}} words.*
 ** Early initialization of Emacs (=early-init.el=)
+This file follows a script like format and is just meant for
+initializing important facts about the configuration.
+
+For starters disabling the default package manager:
 #+begin_src emacs-lisp :tangle "early-init.el"
   (setq package-enable-at-startup nil)
+#+end_src
+Then adding the need directories to =load-path=.
+#+begin_src emacs-lisp :tangle "early-init.el"
+  (add-to-list 'load-path
+  	     (expand-file-name "core/" user-emacs-directory))
+  (add-to-list 'load-path
+  	     (expand-file-name "my-emacs-packages/" user-emacs-directory))
 #+end_src
 ** The main initialization of Emacs (=init.el=)
 *** User Options
