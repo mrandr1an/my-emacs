@@ -4,6 +4,13 @@
 	   )
   :config
    (set-face-attribute 'org-block-begin-line nil :height 150)
+   (org-babel-do-load-languages
+    'org-babel-load-languages
+    '((python . t)
+      (haskell . t)
+      (latex . t)
+      (shell . t))
+    )
   :custom
    (org-pretty-entities t)
    (fill-column 70)
