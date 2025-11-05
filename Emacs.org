@@ -38,10 +38,59 @@ To define the group we use the =defgroup= macro.
     :group 'emacs
   )
 #+end_src
+**** Emacs Environment Options
+
 #+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-notes-dir "~/Documents/Notes"
+    "Where org-roam notes live."
     :group 'my-emacs
+    :type 'directory
   )
 #+end_src
+
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-dailies-dir "~/Documents/Dailies"
+    "Where org-roam dailies live."
+     :group 'my-emacs
+     :type 'directory
+  )
+#+end_src
+
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-blog-url "https://kracked.tech/xmlrpc.php"
+    "The url of the blog to contact wordpress as defined in org2blog."
+    :type 'string
+  )
+#+end_src
+
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-blog-name "kracked"
+    "Identifier of blog."
+    :type 'string
+  )
+#+end_src
+
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-blog-domain "kracked.tech"
+    "Domain of blog.."
+    :type 'string
+  )
+#+end_src
+
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-latex-png-dir "~/Documents/LatexPng/"
+    "Where latex preview pngs are stored."
+    :type 'directory
+  )
+#+end_src
+
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-org-publications "~/Documents/Publish/Org"
+    "Where org-based publications drafts live."
+    :type 'directory
+  )
+#+end_src
+
 **** User Interface Options
 ***** Dired Order Option
 This is better explained in the Dired section.
