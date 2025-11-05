@@ -482,6 +482,7 @@ Eglot is the built in LSP server for Emacs.
   (use-package eglot
     :ensure nil
     :commands (eglot eglot-ensure)
+    :config
     :init
     (setq eglot-autoshutdown t
           eglot-events-buffer-config 0
@@ -850,5 +851,13 @@ Marginalia offers comments right next to the commands on the minibuffer.
     :ensure t
     :hook
     (haskell-mode . eglot-ensure)
+  )
+#+end_src
+**** Python
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-python.el" :mkdirp yes
+  (use-package python-mode
+    :ensure nil
+    :hook
+    (python-mode . eglot-ensure)
   )
 #+end_src

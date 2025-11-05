@@ -60,6 +60,10 @@ Python is already installed on your system (probably).So just install pip
 ```bash
 sudo dnf install pip
 ```
+and then `pyright` and `jsonrpc` for lsp.
+```bash
+pip install pyright jsonrpc
+```
 #### LaTeX
 For installing latex I do:
 ```bash

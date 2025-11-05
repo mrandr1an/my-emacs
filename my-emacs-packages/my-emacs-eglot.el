@@ -1,6 +1,7 @@
 (use-package eglot
   :ensure nil
   :commands (eglot eglot-ensure)
+  :config
   :init
   (setq eglot-autoshutdown t
         eglot-events-buffer-config 0
