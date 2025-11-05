@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-11-01 Sat 12:58 -->
+<!-- 2025-11-05 Wed 12:14 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My Emacs Configuration</title>
@@ -201,29 +201,46 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org7e3d504">Emacs</a>
+<li><a href="#org768a568">Emacs</a>
 <ul>
-<li><a href="#org2305f3b">Early initialization of Emacs (<code>early-init.el</code>)</a></li>
-<li><a href="#orgdab15fa">The main initialization of Emacs (<code>init.el</code>)</a>
+<li><a href="#org0014cca">Early initialization of Emacs (<code>early-init.el</code>)</a></li>
+<li><a href="#orgcf8d10f">The main initialization of Emacs (<code>init.el</code>)</a>
 <ul>
-<li><a href="#orgb3e7a53">User Options</a></li>
-<li><a href="#org25b6901">Variables</a></li>
-<li><a href="#orgada8114">Package Manager</a></li>
+<li><a href="#org4c895e8">User Options</a></li>
+<li><a href="#org272d7ce">Variables</a></li>
+<li><a href="#orgd0b39e9">Package Manager</a></li>
 </ul>
 </li>
-<li><a href="#org995e4d7">Core Functions (<code>my-emacs-functions.el</code>)</a>
+<li><a href="#org4cd70ee">Core Functions (<code>my-emacs-functions.el</code>)</a>
 <ul>
-<li><a href="#org55f10b1"><span class="todo TODO">TODO</span> Vim Scrolling Mode</a></li>
-<li><a href="#orga023110"><span class="todo TODO">TODO</span> Load Package</a></li>
+<li><a href="#org5f4480a"><span class="todo TODO">TODO</span> Vim Scrolling Mode</a></li>
+<li><a href="#orgd53a701"><span class="todo TODO">TODO</span> Load Package</a></li>
 </ul>
 </li>
-<li><a href="#org7266a3b">Libraries</a></li>
-<li><a href="#org888b52c">Packages</a>
+<li><a href="#org1f4a9c0">Packages</a>
 <ul>
-<li><a href="#org315a60a">General</a></li>
-<li><a href="#org172c936">Evil Mode</a></li>
-<li><a href="#org331ba58"><span class="todo TODO">TODO</span> Magit</a></li>
-<li><a href="#org5b64f7e"><span class="todo TODO">TODO</span> Dired</a></li>
+<li><a href="#orgb5b942d">General</a></li>
+<li><a href="#org3024c11">Exec Path From Shell</a></li>
+<li><a href="#org5b86f5a">Direnv</a></li>
+<li><a href="#org353e6f1">Evil Mode</a></li>
+<li><a href="#org1931674"><span class="todo TODO">TODO</span> Magit</a></li>
+<li><a href="#orgac109a1">Dired</a></li>
+<li><a href="#org177a125">ISpell</a></li>
+<li><a href="#orge62b0da">Which-key</a></li>
+<li><a href="#org9ee12f8">Eglot</a></li>
+<li><a href="#org4143c5e">Eldoc-Box</a></li>
+<li><a href="#orgdde959f">Flymake</a></li>
+<li><a href="#org188ad6b">Org</a></li>
+<li><a href="#org8673198">Org Roam</a></li>
+<li><a href="#org981da86">Org2Blog</a></li>
+<li><a href="#org8cf6364">Org Latex Preview</a></li>
+<li><a href="#org632b9d8">Embark &amp;&amp; Consult</a></li>
+<li><a href="#orge26f00e">Project</a></li>
+<li><a href="#org6c10842">Themes</a></li>
+<li><a href="#org6f3d1e3">Autocompletion</a></li>
+<li><a href="#org0339d00">Email</a></li>
+<li><a href="#orga85e3da">Org-Mime</a></li>
+<li><a href="#org446311c">Programming Languages</a></li>
 </ul>
 </li>
 </ul>
@@ -231,29 +248,47 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org7e3d504" class="outline-2">
-<h2 id="org7e3d504">Emacs</h2>
-<div class="outline-text-2" id="text-org7e3d504">
+<div id="outline-container-org768a568" class="outline-2">
+<h2 id="org768a568">Emacs</h2>
+<div class="outline-text-2" id="text-org768a568">
 <p>
-<b>Last export 2025-11-01 12:58:02 +0200 with 2640 words.</b>
+<b>Last export 2025-11-05 12:14:00 +0200 with 4150 words.</b>
 </p>
 </div>
-<div id="outline-container-org2305f3b" class="outline-3">
-<h3 id="org2305f3b">Early initialization of Emacs (<code>early-init.el</code>)</h3>
-<div class="outline-text-3" id="text-org2305f3b">
+<div id="outline-container-org0014cca" class="outline-3">
+<h3 id="org0014cca">Early initialization of Emacs (<code>early-init.el</code>)</h3>
+<div class="outline-text-3" id="text-org0014cca">
+<p>
+This file follows a script like format and is just meant for
+initializing important facts about the configuration.
+</p>
+
+<p>
+For starters disabling the default package manager:
+</p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(setq package-enable-at-startup nil)
 </pre>
 </div>
+<p>
+Then adding the need directories to <code>load-path</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(add-to-list 'load-path
+             (expand-file-name "core/" user-emacs-directory))
+(add-to-list 'load-path
+             (expand-file-name "my-emacs-packages/" user-emacs-directory))
+</pre>
 </div>
 </div>
-<div id="outline-container-orgdab15fa" class="outline-3">
-<h3 id="orgdab15fa">The main initialization of Emacs (<code>init.el</code>)</h3>
-<div class="outline-text-3" id="text-orgdab15fa">
 </div>
-<div id="outline-container-orgb3e7a53" class="outline-4">
-<h4 id="orgb3e7a53">User Options</h4>
-<div class="outline-text-4" id="text-orgb3e7a53">
+<div id="outline-container-orgcf8d10f" class="outline-3">
+<h3 id="orgcf8d10f">The main initialization of Emacs (<code>init.el</code>)</h3>
+<div class="outline-text-3" id="text-orgcf8d10f">
+</div>
+<div id="outline-container-org4c895e8" class="outline-4">
+<h4 id="org4c895e8">User Options</h4>
+<div class="outline-text-4" id="text-org4c895e8">
 <p>
 All of the user options are defined under the emacs group
 <code>my-emacs</code>. A group in emacs-lisp is just a way to organize metadata
@@ -262,7 +297,6 @@ customize</code> the user can easily manipulate My-Emacs' behavior. Things
 that can be modified are:
 </p>
 <ul class="org-ul">
-<li>Theme-Families.</li>
 <li>Enabled/Disabled Features.</li>
 <li>UI (User Interface).</li>
 </ul>
@@ -278,47 +312,84 @@ To define the group we use the <code>defgroup</code> macro.
 </div>
 </div>
 <ul class="org-ul">
-<li><a id="orgf939234"></a>Theme Option<br />
-<div class="outline-text-5" id="text-orgf939234">
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">(defcustom my-emacs-load-theme-family 'nano
-  "Set of themes to load."
-  :group 'my-emacs
-  :type '(choice :tag "Set of themes to load" :value 'nano
-         )
-)
-</pre>
-</div>
-</div>
-</li>
-<li><a id="orgef4a8b7"></a>User Interface Options<br />
-<ul class="org-ul">
-<li><a id="org6172725"></a>Dired Order Option<br />
-<div class="outline-text-6" id="text-org6172725">
+<li><a id="orgc4b4681"></a>Emacs Environment Options<br />
+<div class="outline-text-5" id="text-orgc4b4681">
 <p>
-This is better explained in the Dired section.
+The <code>my-emacs-notes-dir</code> defines the directory
+where notes are going to be stored as defined in <a href="#org8673198">Org Roam</a>.
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">(defcustom my-emacs-dired-order '(dirs hidden-dirs files hidden-files)
-  "The order of which dired displays its items.
-Each element should be one of the following symbols:
-- `dirs` : visible directories
-- `hidden-dirs` : hidden directories (starting with '.')
-- `files` : visible files
-- `hidden-files` : hidden files (starting with '.')"
+<pre class="src src-emacs-lisp">(defcustom my-emacs-notes-dir "~/Documents/Notes"
+  "Where org-roam notes live."
   :group 'my-emacs
-  :type '(repeat
-          (choice (const dirs)
-                  (const hidden-dirs)
-                  (const files)
-                  (const hidden-files)))
+  :type 'directory
+)
+</pre>
+</div>
+<p>
+The <code>my-emacs-dailies-dir</code> defines the directory
+where dailie notes are going to be stored as defined in <a href="#org8673198">Org Roam</a>.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-dailies-dir "~/Documents/Dailies"
+  "Where org-roam dailies live."
+   :group 'my-emacs
+   :type 'directory
+)
+</pre>
+</div>
+<p>
+The <code>my-emacs-blog-url</code> defines the URL of your Wordpress blog's
+<code>xmlrpc</code> file as defined in <a href="#org981da86">Org2Blog</a>.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-blog-url "https://kracked.tech/xmlrpc.php"
+  "The url of the blog to contact wordpress as defined in org2blog."
+  :type 'string
+)
+</pre>
+</div>
+<p>
+The <code>my-emacs-blog-name</code> defines the name of your Wordpress blog.
+Its just an identifier as defined in <a href="#org981da86">Org2Blog</a>.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-blog-name "kracked"
+  "Identifier of blog."
+  :type 'string
+)
+</pre>
+</div>
+<p>
+The <code>my-emacs-blog-name</code> defines the domain of your Wordpress blog
+defined in <a href="#org981da86">Org2Blog</a>.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-blog-domain "kracked.tech"
+  "Domain of blog.."
+  :type 'string
+)
+</pre>
+</div>
+<p>
+The <code>my-emacs-latex-png-dir</code> defines where <a href="#org8cf6364">org-latex-preview</a> will
+store the latex preview images.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom my-emacs-latex-png-dir "~/Documents/LatexPng/"
+  "Where latex preview pngs are stored."
+  :type 'directory
 )
 </pre>
 </div>
 </div>
 </li>
-<li><a id="org9b450ce"></a>Tool-Bar Option<br />
-<div class="outline-text-6" id="text-org9b450ce">
+<li><a id="org3a9a4fc"></a>User Interface Options<br />
+<div class="outline-text-5" id="text-org3a9a4fc">
+<p>
+The <code>my-emacs-tool-bar</code> defines whether the toolbar
+should appear or not.
+</p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(defcustom my-emacs-tool-bar -1
   "If non-nil, enable `tool-bar-mode`."
@@ -327,10 +398,10 @@ Each element should be one of the following symbols:
 )
 </pre>
 </div>
-</div>
-</li>
-<li><a id="org384427c"></a>Menu-Bar Option<br />
-<div class="outline-text-6" id="text-org384427c">
+<p>
+The <code>my-emacs-menu-bar</code> defines whether the menubar
+should appear or not.
+</p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(defcustom my-emacs-menu-bar -1
   "If non-nil, enable `menu-bar-mode`."
@@ -339,10 +410,10 @@ Each element should be one of the following symbols:
 )
 </pre>
 </div>
-</div>
-</li>
-<li><a id="org3c49ff3"></a>Scroll-Bar Option<br />
-<div class="outline-text-6" id="text-org3c49ff3">
+<p>
+The <code>my-emacs-scroll-bar</code> defines whether the scrollbar
+should appear or not.
+</p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(defcustom my-emacs-scroll-bar -1
   "If non-nil, enable `scroll-bar-mode`."
@@ -353,12 +424,12 @@ Each element should be one of the following symbols:
 </div>
 </div>
 </li>
-</ul>
-</li>
-<li><a id="org681a112"></a>Feature Options<br />
-<ul class="org-ul">
-<li><a id="orgf2049cb"></a>Vim Scrolling Option<br />
-<div class="outline-text-6" id="text-orgf2049cb">
+<li><a id="org2832e83"></a>Feature Options<br />
+<div class="outline-text-5" id="text-org2832e83">
+<p>
+The <code>my-emacs-vim-scrolling</code> defines whether vim-like scrolling
+should be enabled or not.
+</p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(defcustom my-emacs-vim-scrolling t
   "If non-nil, enable smooth scrolling, like vim."
@@ -367,10 +438,10 @@ Each element should be one of the following symbols:
 )
 </pre>
 </div>
-</div>
-</li>
-<li><a id="org55c6d56"></a>Evil Mode Option<br />
-<div class="outline-text-6" id="text-org55c6d56">
+<p>
+The <code>my-emacs-evil</code> defines whether <a href="#org353e6f1">Evil Mode</a> should be
+enabled or not.
+</p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(defcustom my-emacs-evil t
     "If non-nil, enable evil mode for vim emulation."
@@ -381,61 +452,11 @@ Each element should be one of the following symbols:
 </div>
 </div>
 </li>
-<li><a id="orgddc5529"></a>Rust Language Support<br />
-<div class="outline-text-6" id="text-orgddc5529">
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">(defcustom my-emacs-rust t
-  "If non-nil, enable support for Rust."
-  :group 'my-emacs
-  :type 'boolean
-)
-</pre>
-</div>
-</div>
-</li>
-<li><a id="org8b5cc56"></a>Ocaml Language Support<br />
-<div class="outline-text-6" id="text-org8b5cc56">
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">(defcustom my-emacs-ocaml t
-  "If non-nil, enable support for Ocaml."
-  :group 'my-emacs
-  :type 'boolean
-)
-</pre>
-</div>
-</div>
-</li>
-<li><a id="org2659db5"></a>Haskell Language Support<br />
-<div class="outline-text-6" id="text-org2659db5">
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">(defcustom my-emacs-haskell t
-  "If non-nil, enable support for Haskell."
-  :group 'my-emacs
-  :type 'boolean
-)
-</pre>
-</div>
-</div>
-</li>
-<li><a id="org858918c"></a>C/C++ Language Support<br />
-<div class="outline-text-6" id="text-org858918c">
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">(defcustom my-emacs-c-c++ t
-  "If non-nil, enable support for C/C++."
-  :group 'my-emacs
-  :type 'boolean
-)
-</pre>
-</div>
-</div>
-</li>
-</ul>
-</li>
 </ul>
 </div>
-<div id="outline-container-org25b6901" class="outline-4">
-<h4 id="org25b6901">Variables</h4>
-<div class="outline-text-4" id="text-org25b6901">
+<div id="outline-container-org272d7ce" class="outline-4">
+<h4 id="org272d7ce">Variables</h4>
+<div class="outline-text-4" id="text-org272d7ce">
 <p>
 Directory that contains all of the <code>use-package</code> declarations.
 </p>
@@ -458,9 +479,9 @@ Ordered priority of packages that must be loaded.
 </div>
 </div>
 </div>
-<div id="outline-container-orgada8114" class="outline-4">
-<h4 id="orgada8114">Package Manager</h4>
-<div class="outline-text-4" id="text-orgada8114">
+<div id="outline-container-orgd0b39e9" class="outline-4">
+<h4 id="orgd0b39e9">Package Manager</h4>
+<div class="outline-text-4" id="text-orgd0b39e9">
 <p>
 This emacs configuration uses <a href="https://github.com/progfolio/elpaca">elpaca</a> as its package manager (for
 now). I have been thinking of switching to a manual approach but for
@@ -517,30 +538,29 @@ Then I enable use-package
 </pre>
 </div>
 <p>
-I use use-package for declaratively configuring emacs
+I use use-package for declaratively configuring emacs 
 </p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(use-package emacs
   :ensure nil
-  :init
-  (add-to-list 'load-path (expand-file-name "core/" user-emacs-directory))
-  (add-to-list 'load-path (expand-file-name "my-emacs-packages/" user-emacs-directory))
   :config
   (load "my-emacs-functions")
   (tool-bar-mode my-emacs-tool-bar)
   (menu-bar-mode my-emacs-menu-bar)
   (scroll-bar-mode my-emacs-scroll-bar)
   (my-emacs-vim-scrolling-mode my-emacs-vim-scrolling)
-  (my-emacs-load-packages)
+  (my-emacs-load-packages) 
+  (display-line-numbers-mode nil)
+  (set-face-attribute 'default nil :family "0xProtoNerdFont" :height 120)
 )
 </pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-org995e4d7" class="outline-3">
-<h3 id="org995e4d7">Core Functions (<code>my-emacs-functions.el</code>)</h3>
-<div class="outline-text-3" id="text-org995e4d7">
+<div id="outline-container-org4cd70ee" class="outline-3">
+<h3 id="org4cd70ee">Core Functions (<code>my-emacs-functions.el</code>)</h3>
+<div class="outline-text-3" id="text-org4cd70ee">
 <p>
 This file contains functions that:
 </p>
@@ -550,9 +570,9 @@ This file contains functions that:
 <li>May or not be moved as a library and/or mode later.</li>
 </ul>
 </div>
-<div id="outline-container-org55f10b1" class="outline-4">
-<h4 id="org55f10b1"><span class="todo TODO">TODO</span> Vim Scrolling Mode</h4>
-<div class="outline-text-4" id="text-org55f10b1">
+<div id="outline-container-org5f4480a" class="outline-4">
+<h4 id="org5f4480a"><span class="todo TODO">TODO</span> Vim Scrolling Mode</h4>
+<div class="outline-text-4" id="text-org5f4480a">
 <p>
 This is not a mode, its a function. It might be a good idea to make it
 a minor mode later, so for now its marked as TODO.
@@ -569,9 +589,9 @@ a minor mode later, so for now its marked as TODO.
 </div>
 </div>
 </div>
-<div id="outline-container-orga023110" class="outline-4">
-<h4 id="orga023110"><span class="todo TODO">TODO</span> Load Package</h4>
-<div class="outline-text-4" id="text-orga023110">
+<div id="outline-container-orgd53a701" class="outline-4">
+<h4 id="orgd53a701"><span class="todo TODO">TODO</span> Load Package</h4>
+<div class="outline-text-4" id="text-orgd53a701">
 <p>
 Loading packages should be done in a fixed order since packages may depend on each other.
 For example <code>general.el</code> should be loaded before <code>magit.el</code> since the latter depends on the former.
@@ -637,16 +657,18 @@ non-priority tail (raw FS order)."
 </div>
 </div>
 </div>
-<div id="outline-container-org7266a3b" class="outline-3">
-<h3 id="org7266a3b">Libraries</h3>
+<div id="outline-container-org1f4a9c0" class="outline-3">
+<h3 id="org1f4a9c0">Packages</h3>
+<div class="outline-text-3" id="text-org1f4a9c0">
+<p>
+This section exports only <code>use-package</code> declarations for packages.
+Everything that is not a use-package declaration should be in
+<code>my-emacs-library</code>.
+</p>
 </div>
-<div id="outline-container-org888b52c" class="outline-3">
-<h3 id="org888b52c">Packages</h3>
-<div class="outline-text-3" id="text-org888b52c">
-</div>
-<div id="outline-container-org315a60a" class="outline-4">
-<h4 id="org315a60a">General</h4>
-<div class="outline-text-4" id="text-org315a60a">
+<div id="outline-container-orgb5b942d" class="outline-4">
+<h4 id="orgb5b942d">General</h4>
+<div class="outline-text-4" id="text-orgb5b942d">
 <p>
 For key-binding management I use <a href="https://github.com/noctuid/general.el">general</a>. It provides many
 useful features for defining key-bindings. I mostly take advantage
@@ -669,9 +691,38 @@ key and perhaps further customization for the user.</li>
 </div>
 </div>
 </div>
-<div id="outline-container-org172c936" class="outline-4">
-<h4 id="org172c936">Evil Mode</h4>
-<div class="outline-text-4" id="text-org172c936">
+<div id="outline-container-org3024c11" class="outline-4">
+<h4 id="org3024c11">Exec Path From Shell</h4>
+<div class="outline-text-4" id="text-org3024c11">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (when (memq window-system '(mac ns x))
+   (exec-path-from-shell-initialize))
+  :custom
+  (exec-path-from-shell-variables '("PATH" "MANPATH"))
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5b86f5a" class="outline-4">
+<h4 id="org5b86f5a">Direnv</h4>
+<div class="outline-text-4" id="text-org5b86f5a">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package direnv
+  :ensure t
+  :config
+  (direnv-mode)
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org353e6f1" class="outline-4">
+<h4 id="org353e6f1">Evil Mode</h4>
+<div class="outline-text-4" id="text-org353e6f1">
 <p>
 <a href="https://github.com/emacs-evil/evil">Evil</a> provides a vim-motions emulation layer on top of emacs. This package
 should only be loaded if <code>my-emacs-evil</code> variable is non-nil.
@@ -686,6 +737,16 @@ should only be loaded if <code>my-emacs-evil</code> variable is non-nil.
   (evil-want-minibuffer t) 
   :config
   (evil-mode)
+   :general (:keymaps 'evil-insert-state-map
+            "C-k" nil
+            "C-j" nil
+            "C-h" nil
+            "C-l" nil
+            "C-d" nil
+            "C-a" nil)
+   (:keymaps 'evil-normal-state-map
+             "C-." nil
+              )
 )
 </pre>
 </div>
@@ -773,9 +834,9 @@ with a few functions (no modes), but I just use <code>evilnc-comment-or-uncommen
 </div>
 </div>
 </div>
-<div id="outline-container-org331ba58" class="outline-4">
-<h4 id="org331ba58"><span class="todo TODO">TODO</span> Magit</h4>
-<div class="outline-text-4" id="text-org331ba58">
+<div id="outline-container-org1931674" class="outline-4">
+<h4 id="org1931674"><span class="todo TODO">TODO</span> Magit</h4>
+<div class="outline-text-4" id="text-org1931674">
 <p>
 <a href="https://github.com/magit/magit">Magit</a> is a wrapper around git. Notice the dependency on transient,
 perhaps it should be enabled globally as a library from source so its marked as TODO.
@@ -797,143 +858,533 @@ perhaps it should be enabled globally as a library from source so its marked as 
 </div>
 </div>
 </div>
-<div id="outline-container-org5b64f7e" class="outline-4">
-<h4 id="org5b64f7e"><span class="todo TODO">TODO</span> Dired</h4>
-<div class="outline-text-4" id="text-org5b64f7e">
-<p>
-Dired (Directory Editor) is the built-in directory manager
-in Emacs (it predates it!). The desired functionallity is
-as follows:
-</p>
-<ul class="org-ul">
-<li>Display items in the following order:
-<ol class="org-ol">
-<li>Directories</li>
-<li>Hidden Directories (If toggled)</li>
-<li>Files</li>
-<li>Hidden Files (If toggled)</li>
-</ol></li>
-<li>Toggle information of files/directories in region/cursor.</li>
-<li>Toggle preview of files/directories in region/cursor.</li>
-<li>Directory Functionallity
-<ul class="org-ul">
-<li>Move</li>
-<li>Copy</li>
-<li>Rename</li>
-<li>Mkdir</li>
-<li>Touch</li>
-<li>Delete</li>
-<li>Compress</li>
-<li>Decompress</li>
-<li>Encrypt with key</li>
-<li>Decrypt with key</li>
-<li>Open in application</li>
-<li>Execute</li>
-</ul></li>
-</ul>
-<p>
-This is quite complex so its compartmentalized into different headings:
-</p>
-</div>
-<ul class="org-ul">
-<li><a id="org0a95e1a"></a>Sorting Functionallity<br />
-<div class="outline-text-5" id="text-org0a95e1a">
-<p>
-The <code>my-emacs--dired-category</code> function returns the category of an item
-as defined in <code>`my-emacs-dired-order`</code>. Note that this counts "." and ".."
-as <code>`hidden-files`</code>.
-</p>
+<div id="outline-container-orgac109a1" class="outline-4">
+<h4 id="orgac109a1">Dired</h4>
+<div class="outline-text-4" id="text-orgac109a1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">(defun my-emacs-dired--category (filename)
-  (let* ((base (file-name-nondirectory filename))
-         (hidden (and base (string-prefix-p "." base)))
-         (dir (file-directory-p filename)))
-    (cond
-     ((and dir hidden) 'hidden-dirs)
-     (dir              'dirs)
-     ((and (not dir) hidden) 'hidden-files)
-     (t                'files))))
+<pre class="src src-emacs-lisp">(use-package dired
+  :ensure nil
+)
 </pre>
 </div>
+</div>
+</div>
+<div id="outline-container-org177a125" class="outline-4">
+<h4 id="org177a125">ISpell</h4>
+<div class="outline-text-4" id="text-org177a125">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package ispell
+  :ensure nil 
+  :custom
+  (ispell-program-name "hunspell")
+  (ispell-dictionary "en_US,el_GR") 
+  :config
+  (add-to-list 'ispell-hunspell-dictionary-alist
+             '("en_US,el_GR"
+               "[[:alpha:]]"
+               "[^[:alpha:]]"
+               "['’]"
+               t
+               ("-d" "en_US,el_GR")
+               nil
+               utf-8)))
+  :hook
+  (latex-mode . flyspell-mode)
+  (markdown-mode . flyspell-mode)
+  (org-mode . flyspell-mode)
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge62b0da" class="outline-4">
+<h4 id="orge62b0da">Which-key</h4>
+<div class="outline-text-4" id="text-orge62b0da">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package which-key
+  :ensure nil
+  :init
+  (which-key-mode)
+  :config 
+  (which-key-setup-side-window-bottom)
+  :custom
+  (which-key-idle-delay 1)
+  (which-key-idle-secondary-delay 0.05)
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9ee12f8" class="outline-4">
+<h4 id="org9ee12f8">Eglot</h4>
+<div class="outline-text-4" id="text-org9ee12f8">
 <p>
-The <code>my-emacs-dired--get-filename-at-point</code> function is just a wrapper a
+Eglot is the built in LSP server for Emacs.
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">(require 'cl-lib)
-
-(cl-defstruct my-emacs-dired-items
-    dirs hidden-dirs files hidden-files)
-
-(defvar-local my-emacs-dired-cache nil)
-
-(defun my-emacs-dired--get-line-at-pos ()
-  (buffer-substring (line-beginning-position)
-                    (min (1+ (line-end-position)) (point-max)))
+<pre class="src src-emacs-lisp">(use-package eglot
+  :ensure nil
+  :commands (eglot eglot-ensure)
+  :init
+  (setq eglot-autoshutdown t
+        eglot-events-buffer-config 0
+        eglot-sync-connect nil
+        eglot-confirm-server-edits nil)
 )
-
-(defun my-emacs-dired--get-file-at-pos ()
-  (dired-get-filename nil t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4143c5e" class="outline-4">
+<h4 id="org4143c5e">Eldoc-Box</h4>
+<div class="outline-text-4" id="text-org4143c5e">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package eldoc-box
+  :ensure t
+  :init
+  (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t)
+  (add-hook 'prog-mode-hook #'eldoc-box-hover-mode t)
 )
-
-(defun my-emacs-dired--get-cat-at-pos (file)
-  (my-emacs-dired--category file)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdde959f" class="outline-4">
+<h4 id="orgdde959f">Flymake</h4>
+<div class="outline-text-4" id="text-orgdde959f">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package flymake
+  :ensure nil
+  :custom
+  (flymake-show-diagnostics-at-end-of-line 'fancy)
+  :hook
+  (prog-mode . flymake-mode)
 )
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org188ad6b" class="outline-4">
+<h4 id="org188ad6b">Org</h4>
+<div class="outline-text-4" id="text-org188ad6b">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org
+  :ensure `(org :repo "https://code.tecosaur.net/tec/org-mode.git/"
+                :branch "dev"
+           )
+  :config
+   (set-face-attribute 'org-block-begin-line nil :height 150)
+  :custom
+   (org-pretty-entities t)
+   (fill-column 70)
+  :hook
+   (org-mode . auto-fill-mode)
+   (org-mode . (lambda ()
+                   (font-lock-add-keywords
+                    nil
+                    '(
+                      ("^#\\+begin_src\\(.*\\)$"
+                       (0 (progn
+                            (compose-region (match-beginning 0) (+ (match-beginning 0) 11) "")
+                            nil)))))
+                   ))
 
-(defun my-emacs-dired--clear-dir-contents ()
-  (interactive)
-  (save-excursion
-    (let ((inhibit-read-only t))
-    (goto-char (point-min))
-    (forward-line 1)
-    (while (not (eobp))
-      (delete-region (line-beginning-position)
-                     (min (1+ (line-end-position)) (point-max)))))
-    )
 )
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8673198" class="outline-4">
+<h4 id="org8673198">Org Roam</h4>
+<div class="outline-text-4" id="text-org8673198">
+<p>
+<a href="https://github.com/org-roam/org-roam">Org-Roam</a> is a note-taking tool.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  (org-roam-db-sync)
+  :custom
+  (org-roam-node-display-template
+      (concat "${title:*} "
+              (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-directory (file-truename my-emacs-notes-dir))
+  (org-roam-dailies-directory  (file-truename my-emacs-dailies-dir))
+  :config
+  (require 'org-roam-export) 
+  :general
+  (:prefix "C-c n"
 
-(defun my-emacs-dired--collect ()
-  (interactive)
-  (let ( (dirs '())
-         (hidden-dirs '())
-         (files '())
-         (hidden-files '()))
-  (save-excursion
-    (goto-char (point-min))
-    (forward-line 1)
-    (while (not (eobp))
-      (let* ((raw-line-at-point (my-emacs-dired--get-line-at-pos))
-            (file-at-point      (my-emacs-dired--get-file-at-pos))
-            (category-at-point
-             (my-emacs-dired--get-cat-at-pos file-at-point)))
-        (cond ((eq category-at-point 'dirs)
-               (push file-at-point dirs))
-              ((eq category-at-point 'hidden-dirs)
-               (push file-at-point hidden-dirs))
-              ((eq category-at-point 'files)
-               (push file-at-point files))
-              ((eq category-at-point 'hidden-files)
-               (push file-at-point hidden-files))
-              )
-        (forward-line 1))))
-  (setq my-emacs-dired--cache
-        (make-my-emacs-dired-items
-         :dirs (nreverse dirs)
-         :hidden-dirs (nreverse hidden-dirs)
-         :files (nreverse files)
-         :hidden-files (nreverse files)
-        )))
+           "D r" 'org-roam-db-sync
+
+           "n i" 'org-roam-node-insert
+           "n f" 'org-roam-node-find
+           "n d" 'org-roam-node-remove
+
+           "r i" 'org-roam-ref-add
+           "r d"  'org-roam-ref-remove
+
+           "t i" 'org-roam-tag-add
+           "t d" 'org-roam-tag-remove
+
+           "d i" 'org-roam-dailies-capture-today
+           "d f" 'org-roam-dailies-goto-date
 )
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org981da86" class="outline-4">
+<h4 id="org981da86">Org2Blog</h4>
+<div class="outline-text-4" id="text-org981da86">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org2blog
+  :ensure t
+  :commands (org2blog-user-interface)
+  :config
+  (org2blog-user-login)
+  :preface
+  (defun my-emacs-blog--creds ()
+    (let* ((entry (car (auth-source-search
+                        :host my-emacs-blog-domain
+                        :require '(:user :secret))))
+           (user (plist-get entry :user))
+           (secret (plist-get entry :secret))
+           (pass (if (functionp secret) (funcall secret) secret)))
+      (list user pass)))
+  (defun my-emacs-blog--run-after-save (post)
+    (pp post)
+  )
+  :custom
+  (org2blog/wp-blog-alist
+   (let* ((creds (my-emacs-blog--creds))
+          (user (car creds))
+          (pass (cadr creds)))
+     `((,my-emacs-blog-name
+        :url ,my-emacs-blog-url
+        :username ,user
+        :password ,pass))))
+  (org2blog/wp-image-thumbnails t)
+  (org2blog/wp-use-wp-latex t)
+  (org2blog/wp-image-upload t)
+  (org2blog/wp-show-post-in-browser 'show)
+  :general
+  (:prefix "C-c b" 
+           "i"     'org2blog-user-interface
+           "n"     'org2blog-buffer-new
 
+           "b p"   'org2blog-buffer-post-publish
+           "b s"   'org2blog-buffer-post-save 
+           "b v"   'org2blog-buffer-post-view
+           "b d"   'org2blog-buffer-post-trash
 
+           "p p"   'org2blog-buffer-page-publish
+           "p s"   'org2blog-buffer-page-save
+           "p v"   'org2blog-buffer-page-view
+           "p d"   'org2blog-buffer-page-trash
+           )
+  :hook
+  (org2blog-buffer-entry-save . my-emacs-blog--run-after-save)
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8cf6364" class="outline-4">
+<h4 id="org8cf6364">Org Latex Preview</h4>
+<div class="outline-text-4" id="text-org8cf6364">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org-latex-preview
+  :ensure nil
+  :config
+  (plist-put org-latex-preview-appearance-options
+           :page-width 0.8)
+  :custom
+  (org-latex-preview-mode-display-live t)
+  (org-latex-preview-mode-update-delay 0.25)
+  (org-latex-preview-ltxpng-directory my-emacs-latex-png-dir)
+  (org-latex-create-formula-image-program 'dvisvgm)
+  :hook
+  (org-mode)
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org632b9d8" class="outline-4">
+<h4 id="org632b9d8">Embark &amp;&amp; Consult</h4>
+<div class="outline-text-4" id="text-org632b9d8">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package embark-consult
+  :ensure t
+)
+</pre>
+</div>
+</div>
+<ul class="org-ul">
+<li><a id="org666590d"></a>Consult<br />
+<div class="outline-text-5" id="text-org666590d">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package consult 
+  :ensure t
+  :general
+  ("C-x b" 'consult-buffer)
+  ("C-x v r" 'consult-register)
+  ("C-x r s" 'consult-register-store)
+  ("C-x r l" 'consult-register-load) 
+  ("C-x v M"    'consult-global-mark)
+  ("C-x v m"    'consult-mark)
+  ("C-x C-f" 'consult-find)
+  ("M-g g" 'consult-goto-line)
+  ("M-g i" 'consult-imenu)
+  ("M-g p" 'consult-imenu-multi)
+  ("M-g m" 'consult-outline)
+  ("M-g f" 'consult-flymake)
+  ("M-g c" 'consult-compile-error)
+  ("M-s l" 'consult-line)
+  ("M-s L" 'consult-line-multi)
+  ("M-s g" 'consult-ripgrep)
+)
+:config
+(setq consult-async-min-input 1)
 </pre>
 </div>
 </div>
 </li>
-<li><a id="orgc7a5e1d"></a>Dired Declaration<br />
-<div class="outline-text-5" id="text-orgc7a5e1d">
+<li><a id="org007027b"></a>Embark<br />
+<div class="outline-text-5" id="text-org007027b">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">(use-package dired
+<pre class="src src-emacs-lisp">(use-package embark
+  :ensure t
+  :general
+  ("C-." 'embark-act)
+  ("C-;" 'embark-dwim)
+)
+</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div id="outline-container-orge26f00e" class="outline-4">
+<h4 id="orge26f00e">Project</h4>
+<div class="outline-text-4" id="text-orge26f00e">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package project
   :ensure nil
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6c10842" class="outline-4">
+<h4 id="org6c10842">Themes</h4>
+<div class="outline-text-4" id="text-org6c10842">
+</div>
+<ul class="org-ul">
+<li><a id="org13a2219"></a>Ef<br />
+<div class="outline-text-5" id="text-org13a2219">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package ef-themes
+  :ensure t
+  :init
+  (ef-themes-take-over-modus-themes-mode 1)
+  :custom 
+  (modus-themes-mixed-fonts t)
+  (modus-themes-italic-constructs t)
+  :config
+  (modus-themes-load-theme 'ef-light)
+  )
+</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div id="outline-container-org6f3d1e3" class="outline-4">
+<h4 id="org6f3d1e3">Autocompletion</h4>
+<div class="outline-text-4" id="text-org6f3d1e3">
+<p>
+Vertico offers, vertical autocompletions on the minibuffer.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package vertico
+  :ensure t
+  :custom
+  (vertico-cycle t)
+  :init
+  (vertico-mode) 
+  :general
+  (
+   :keymaps 'vertico-map
+            "C-k" 'vertico-previous
+            "C-j" 'vertico-next
+  )
+)
+</pre>
+</div>
+<p>
+Marginalia offers comments right next to the commands on the minibuffer.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package marginalia
+  :ensure t
+  :init
+  (marginalia-mode)
+)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package corfu
+  :ensure t
+  :init
+  (global-corfu-mode)
+  :general (:keymaps 'corfu-map
+            "C-k" 'corfu-previous
+            "C-j" 'corfu-next
+            "C-d" 'corfu-info-documentation
+            "C-a" 'corfu-info-location
+            "C-h" 'corfu-quit
+            "C-l" 'corfu-insert
+            "C-m" 'corfu-move-to-minibuffer)
+  ("C-l" 'completion-at-point)
+)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package dabbrev
+  :ensure nil
+  :bind (("C-M-/" . dabbrev-expand))
+  :config
+  (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
+  (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode)
+)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package cape
+  :ensure t
+  :init
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block)
+  (add-hook 'completion-at-point-functions #'cape-history)
+  (add-hook 'completion-at-point-functions #'cape-abbrev)
+  (add-hook 'completion-at-point-functions #'cape-dict)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block)
+  (add-hook 'completion-at-point-functions #'cape-keyword)
+  (add-hook 'completion-at-point-functions #'cape-tex)
+)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package kind-icon
+  :ensure t
+  :after corfu
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless partial-completion basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides nil)
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0339d00" class="outline-4">
+<h4 id="org0339d00">Email</h4>
+<div class="outline-text-4" id="text-org0339d00">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package notmuch
+  :ensure t
+  :config
+  (setq send-mail-function 'sendmail-send-it
+    sendmail-program "/usr/bin/msmtp"
+    mail-specify-envelope-from t
+    message-sendmail-envelope-from 'header
+    mail-envelope-from 'header)
+  (setq notmuch-fcc-dirs nil)
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga85e3da" class="outline-4">
+<h4 id="orga85e3da">Org-Mime</h4>
+<div class="outline-text-4" id="text-orga85e3da">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org-mime
+  :ensure t 
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org446311c" class="outline-4">
+<h4 id="org446311c">Programming Languages</h4>
+<div class="outline-text-4" id="text-org446311c">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package prog-mode
+  :ensure nil
+  :custom
+  (display-line-numbers-type 'relative)
+  (fill-column 100)
+  :hook
+  (prog-mode . display-line-numbers-mode)
+  (prog-mode . auto-fill-mode)
+)
+</pre>
+</div>
+</div>
+<ul class="org-ul">
+<li><a id="orgf740717"></a>Rust<br />
+<div class="outline-text-5" id="text-orgf740717">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package rustic
+  :ensure t
+  :custom
+  (rustic-lsp-client 'eglot)
+  :hook
+  (rustic-mode . eglot-ensure)
+)
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org5089cf7"></a>Ocaml<br />
+<div class="outline-text-5" id="text-org5089cf7">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package tuareg
+  :ensure t
+  :hook
+  (tuareg-mode . eglot-ensure)
+)
+</pre>
+</div>
+</div>
+</li>
+<li><a id="orgaaf922f"></a>Haskell<br />
+<div class="outline-text-5" id="text-orgaaf922f">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package haskell-mode
+  :ensure t
+  :hook
+  (haskell-mode . eglot-ensure)
 )
 </pre>
 </div>
@@ -946,7 +1397,7 @@ The <code>my-emacs-dired--get-filename-at-point</code> function is just a wrappe
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Chris Liourtas</p>
-<p class="date">Created: 2025-11-01 Sat 12:58</p>
+<p class="date">Created: 2025-11-05 Wed 12:14</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

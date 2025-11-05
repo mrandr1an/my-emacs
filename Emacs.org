@@ -39,7 +39,8 @@ To define the group we use the =defgroup= macro.
   )
 #+end_src
 **** Emacs Environment Options
-
+The =my-emacs-notes-dir= defines the directory
+where notes are going to be stored as defined in [[id:58aed539-b711-444f-aacc-7d936ec93c16][Org Roam]].
 #+begin_src emacs-lisp :tangle "init.el"
   (defcustom my-emacs-notes-dir "~/Documents/Notes"
     "Where org-roam notes live."
@@ -47,7 +48,8 @@ To define the group we use the =defgroup= macro.
     :type 'directory
   )
 #+end_src
-
+The =my-emacs-dailies-dir= defines the directory
+where dailie notes are going to be stored as defined in [[id:58aed539-b711-444f-aacc-7d936ec93c16][Org Roam]].
 #+begin_src emacs-lisp :tangle "init.el"
   (defcustom my-emacs-dailies-dir "~/Documents/Dailies"
     "Where org-roam dailies live."
@@ -55,62 +57,41 @@ To define the group we use the =defgroup= macro.
      :type 'directory
   )
 #+end_src
-
+The =my-emacs-blog-url= defines the URL of your Wordpress blog's
+=xmlrpc= file as defined in [[id:12db6dab-fef2-48dc-8d5f-bd10ee991a56][Org2Blog]].
 #+begin_src emacs-lisp :tangle "init.el"
   (defcustom my-emacs-blog-url "https://kracked.tech/xmlrpc.php"
     "The url of the blog to contact wordpress as defined in org2blog."
     :type 'string
   )
 #+end_src
-
+The =my-emacs-blog-name= defines the name of your Wordpress blog.
+Its just an identifier as defined in [[id:12db6dab-fef2-48dc-8d5f-bd10ee991a56][Org2Blog]].
 #+begin_src emacs-lisp :tangle "init.el"
   (defcustom my-emacs-blog-name "kracked"
     "Identifier of blog."
     :type 'string
   )
 #+end_src
-
+The =my-emacs-blog-name= defines the domain of your Wordpress blog
+defined in [[id:12db6dab-fef2-48dc-8d5f-bd10ee991a56][Org2Blog]].
 #+begin_src emacs-lisp :tangle "init.el"
   (defcustom my-emacs-blog-domain "kracked.tech"
     "Domain of blog.."
     :type 'string
   )
 #+end_src
-
+The =my-emacs-latex-png-dir= defines where [[id:02d5c601-ba6e-409f-89e4-0e928e8fc28a][org-latex-preview]] will
+store the latex preview images.
 #+begin_src emacs-lisp :tangle "init.el"
   (defcustom my-emacs-latex-png-dir "~/Documents/LatexPng/"
     "Where latex preview pngs are stored."
     :type 'directory
   )
 #+end_src
-
-#+begin_src emacs-lisp :tangle "init.el"
-  (defcustom my-emacs-org-publications "~/Documents/Publish/Org"
-    "Where org-based publications drafts live."
-    :type 'directory
-  )
-#+end_src
-
 **** User Interface Options
-***** Dired Order Option
-This is better explained in the Dired section.
-#+begin_src emacs-lisp :tangle "init.el"
-  (defcustom my-emacs-dired-order '(dirs hidden-dirs files hidden-files)
-    "The order of which dired displays its items.
-  Each element should be one of the following symbols:
-  - `dirs` : visible directories
-  - `hidden-dirs` : hidden directories (starting with '.')
-  - `files` : visible files
-  - `hidden-files` : hidden files (starting with '.')"
-    :group 'my-emacs
-    :type '(repeat
-  	  (choice (const dirs)
-  		  (const hidden-dirs)
-  		  (const files)
-  		  (const hidden-files)))
-  )
-#+end_src
-***** Tool-Bar Option
+The =my-emacs-tool-bar= defines whether the toolbar
+should appear or not.
 #+begin_src emacs-lisp :tangle "init.el"
   (defcustom my-emacs-tool-bar -1
     "If non-nil, enable `tool-bar-mode`."
@@ -118,7 +99,8 @@ This is better explained in the Dired section.
     :type 'boolean
   )
 #+end_src
-***** Menu-Bar Option
+The =my-emacs-menu-bar= defines whether the menubar
+should appear or not.
 #+begin_src emacs-lisp :tangle "init.el"
   (defcustom my-emacs-menu-bar -1
     "If non-nil, enable `menu-bar-mode`."
@@ -126,7 +108,8 @@ This is better explained in the Dired section.
     :type 'boolean
   )
 #+end_src
-***** Scroll-Bar Option
+The =my-emacs-scroll-bar= defines whether the scrollbar
+should appear or not.
 #+begin_src emacs-lisp :tangle "init.el"
   (defcustom my-emacs-scroll-bar -1
     "If non-nil, enable `scroll-bar-mode`."
@@ -135,7 +118,8 @@ This is better explained in the Dired section.
   )
 #+end_src
 **** Feature Options
-***** Vim Scrolling Option
+The =my-emacs-vim-scrolling= defines whether vim-like scrolling
+should be enabled or not.
 #+begin_src emacs-lisp :tangle "init.el"
   (defcustom my-emacs-vim-scrolling t
     "If non-nil, enable smooth scrolling, like vim."
@@ -143,44 +127,13 @@ This is better explained in the Dired section.
      :type 'boolean
   )
 #+end_src
-***** Evil Mode Option
+The =my-emacs-evil= defines whether [[id:1a2f1081-efdf-4a45-84c0-e0f46281a0fb][Evil Mode]] should be
+enabled or not.
 #+begin_src emacs-lisp :tangle "init.el"
   (defcustom my-emacs-evil t
       "If non-nil, enable evil mode for vim emulation."
        :group 'my-emacs
        :type 'boolean
-  )
-#+end_src
-***** Rust Language Support
-#+begin_src emacs-lisp :tangle "init.el"
-  (defcustom my-emacs-rust t
-    "If non-nil, enable support for Rust."
-    :group 'my-emacs
-    :type 'boolean
-  )
-#+end_src
-***** Ocaml Language Support
-#+begin_src emacs-lisp :tangle "init.el"
-  (defcustom my-emacs-ocaml t
-    "If non-nil, enable support for Ocaml."
-    :group 'my-emacs
-    :type 'boolean
-  )
-#+end_src
-***** Haskell Language Support
-#+begin_src emacs-lisp :tangle "init.el"
-  (defcustom my-emacs-haskell t
-    "If non-nil, enable support for Haskell."
-    :group 'my-emacs
-    :type 'boolean
-  )
-#+end_src
-***** C/C++ Language Support
-#+begin_src emacs-lisp :tangle "init.el"
-  (defcustom my-emacs-c-c++ t
-    "If non-nil, enable support for C/C++."
-    :group 'my-emacs
-    :type 'boolean
   )
 #+end_src
 *** Variables
@@ -242,26 +195,25 @@ the elpaca subdirectory, clone it and finally activate it.
       (let ((load-source-file-function nil)) (load "./elpaca-autoloads"))))
   (add-hook 'after-init-hook #'elpaca-process-queues)
   (elpaca `(,@elpaca-order))
-#+end_src
+  #+end_src
 Then I enable use-package
 #+begin_src emacs-lisp :tangle "init.el"
     (elpaca elpaca-use-package
       (elpaca-use-package-mode))
 #+end_src
-I use use-package for declaratively configuring emacs
+I use use-package for declaratively configuring emacs 
 #+begin_src emacs-lisp :tangle "init.el"
   (use-package emacs
     :ensure nil
-    :init
-    (add-to-list 'load-path (expand-file-name "core/" user-emacs-directory))
-    (add-to-list 'load-path (expand-file-name "my-emacs-packages/" user-emacs-directory))
     :config
     (load "my-emacs-functions")
     (tool-bar-mode my-emacs-tool-bar)
     (menu-bar-mode my-emacs-menu-bar)
     (scroll-bar-mode my-emacs-scroll-bar)
     (my-emacs-vim-scrolling-mode my-emacs-vim-scrolling)
-    (my-emacs-load-packages)
+    (my-emacs-load-packages) 
+    (display-line-numbers-mode nil)
+    (set-face-attribute 'default nil :family "0xProtoNerdFont" :height 120)
   )
 #+end_src
 ** Core Functions (=my-emacs-functions.el=)
@@ -331,8 +283,10 @@ This code may look complicated so a description is warranted:
            (message "[my-emacs] Failed to load %s: %s"
                     (file-name-nondirectory f) err))))))
 #+end_src
-** Libraries
 ** Packages
+This section exports only =use-package= declarations for packages.
+Everything that is not a use-package declaration should be in
+=my-emacs-library=.
 *** General
 For key-binding management I use [[https://github.com/noctuid/general.el][general]]. It provides many
 useful features for defining key-bindings. I mostly take advantage
@@ -349,7 +303,29 @@ Notice the =(elpaca-wait)= after the package declaration.
     (general-auto-unbind-keys)
   )
 #+end_src
+*** Exec Path From Shell
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-exec-path-from-shell.el" :mkdirp yes
+  (use-package exec-path-from-shell
+    :ensure t
+    :config
+    (when (memq window-system '(mac ns x))
+     (exec-path-from-shell-initialize))
+    :custom
+    (exec-path-from-shell-variables '("PATH" "MANPATH"))
+  )
+#+end_src
+*** Direnv
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-direnv.el" :mkdirp yes
+  (use-package direnv
+    :ensure t
+    :config
+    (direnv-mode)
+  )
+#+end_src
 *** Evil Mode
+:PROPERTIES:
+:ID:       1a2f1081-efdf-4a45-84c0-e0f46281a0fb
+:END:
 [[https://github.com/emacs-evil/evil][Evil]] provides a vim-motions emulation layer on top of emacs. This package
 should only be loaded if =my-emacs-evil= variable is non-nil.
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-evil.el" :mkdirp yes
@@ -362,6 +338,16 @@ should only be loaded if =my-emacs-evil= variable is non-nil.
     (evil-want-minibuffer t) 
     :config
     (evil-mode)
+     :general (:keymaps 'evil-insert-state-map
+  	    "C-k" nil
+  	    "C-j" nil
+  	    "C-h" nil
+  	    "C-l" nil
+  	    "C-d" nil
+  	    "C-a" nil)
+     (:keymaps 'evil-normal-state-map
+  	     "C-." nil
+  	      )
   )
 #+end_src
 [[https://github.com/emacs-evil/evil-collection][Evil-collection]] is a collection of evil bindings for the parts of Emacs that
@@ -448,118 +434,421 @@ perhaps it should be enabled globally as a library from source so its marked as 
         "c" 'magit-clone)
   )
 #+end_src
-*** TODO Dired
-Dired (Directory Editor) is the built-in directory manager
-in Emacs (it predates it!). The desired functionallity is
-as follows:
- - Display items in the following order:
-   1. Directories
-   2. Hidden Directories (If toggled)
-   3. Files
-   4. Hidden Files (If toggled)
- - Toggle information of files/directories in region/cursor.
- - Toggle preview of files/directories in region/cursor.
- - Directory Functionallity
-   - Move
-   - Copy
-   - Rename
-   - Mkdir
-   - Touch
-   - Delete
-   - Compress
-   - Decompress
-   - Encrypt with key
-   - Decrypt with key
-   - Open in application
-   - Execute
-This is quite complex so its compartmentalized into different headings:
-**** Sorting Functionallity
-The =my-emacs--dired-category= function returns the category of an item
-as defined in =`my-emacs-dired-order`=. Note that this counts "." and ".."
-as =`hidden-files`=.
+*** Dired
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-dired.el" :mkdirp yes
-  (defun my-emacs-dired--category (filename)
-    (let* ((base (file-name-nondirectory filename))
-  	 (hidden (and base (string-prefix-p "." base)))
-  	 (dir (file-directory-p filename)))
-      (cond
-       ((and dir hidden) 'hidden-dirs)
-       (dir              'dirs)
-       ((and (not dir) hidden) 'hidden-files)
-       (t                'files))))
-#+end_src
-The =my-emacs-dired--get-filename-at-point= function is just a wrapper a
-#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-dired.el"
-  (require 'cl-lib)
-
-  (cl-defstruct my-emacs-dired-items
-      dirs hidden-dirs files hidden-files)
-
-  (defvar-local my-emacs-dired-cache nil)
-
-  (defun my-emacs-dired--get-line-at-pos ()
-    (buffer-substring (line-beginning-position)
-  		    (min (1+ (line-end-position)) (point-max)))
-  )
-
-  (defun my-emacs-dired--get-file-at-pos ()
-    (dired-get-filename nil t)
-  )
-
-  (defun my-emacs-dired--get-cat-at-pos (file)
-    (my-emacs-dired--category file)
-  )
-
-  (defun my-emacs-dired--clear-dir-contents ()
-    (interactive)
-    (save-excursion
-      (let ((inhibit-read-only t))
-      (goto-char (point-min))
-      (forward-line 1)
-      (while (not (eobp))
-        (delete-region (line-beginning-position)
-  		     (min (1+ (line-end-position)) (point-max)))))
-      )
-  )
-
-  (defun my-emacs-dired--collect ()
-    (interactive)
-    (let ( (dirs '())
-  	 (hidden-dirs '())
-  	 (files '())
-  	 (hidden-files '()))
-    (save-excursion
-      (goto-char (point-min))
-      (forward-line 1)
-      (while (not (eobp))
-        (let* ((raw-line-at-point (my-emacs-dired--get-line-at-pos))
-  	    (file-at-point      (my-emacs-dired--get-file-at-pos))
-  	    (category-at-point
-  	     (my-emacs-dired--get-cat-at-pos file-at-point)))
-  	(cond ((eq category-at-point 'dirs)
-  	       (push file-at-point dirs))
-  	      ((eq category-at-point 'hidden-dirs)
-  	       (push file-at-point hidden-dirs))
-  	      ((eq category-at-point 'files)
-  	       (push file-at-point files))
-  	      ((eq category-at-point 'hidden-files)
-  	       (push file-at-point hidden-files))
-  	      )
-  	(forward-line 1))))
-    (setq my-emacs-dired--cache
-  	(make-my-emacs-dired-items
-  	 :dirs (nreverse dirs)
-  	 :hidden-dirs (nreverse hidden-dirs)
-  	 :files (nreverse files)
-  	 :hidden-files (nreverse files)
-  	)))
-  )
-
-
-#+end_src
-**** Dired Declaration
-#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-dired.el"
   (use-package dired
     :ensure nil
+  )
+#+end_src
+*** ISpell
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-ispell.el" :mkdirp yes
+  (use-package ispell
+    :ensure nil 
+    :custom
+    (ispell-program-name "hunspell")
+    (ispell-dictionary "en_US,el_GR") 
+    :config
+    (add-to-list 'ispell-hunspell-dictionary-alist
+               '("en_US,el_GR"
+                 "[[:alpha:]]"
+                 "[^[:alpha:]]"
+                 "['’]"
+                 t
+                 ("-d" "en_US,el_GR")
+                 nil
+                 utf-8)))
+    :hook
+    (latex-mode . flyspell-mode)
+    (markdown-mode . flyspell-mode)
+    (org-mode . flyspell-mode)
+  )
+#+end_src
+*** Which-key
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-which-key.el" :mkdirp yes
+  (use-package which-key
+    :ensure nil
+    :init
+    (which-key-mode)
+    :config 
+    (which-key-setup-side-window-bottom)
+    :custom
+    (which-key-idle-delay 1)
+    (which-key-idle-secondary-delay 0.05)
+  )
+#+end_src
+*** Eglot
+Eglot is the built in LSP server for Emacs.
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-eglot.el" :mkdirp yes
+  (use-package eglot
+    :ensure nil
+    :commands (eglot eglot-ensure)
+    :init
+    (setq eglot-autoshutdown t
+          eglot-events-buffer-config 0
+          eglot-sync-connect nil
+          eglot-confirm-server-edits nil)
+  )
+#+end_src
+*** Eldoc-Box
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-eldoc-box.el" :mkdirp yes
+  (use-package eldoc-box
+    :ensure t
+    :init
+    (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t)
+    (add-hook 'prog-mode-hook #'eldoc-box-hover-mode t)
+  )
+#+end_src
+*** Flymake
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-flymake.el" :mkdirp yes
+  (use-package flymake
+    :ensure nil
+    :custom
+    (flymake-show-diagnostics-at-end-of-line 'fancy)
+    :hook
+    (prog-mode . flymake-mode)
+  )
+#+end_src
+*** Org
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-org.el" :mkdirp yes
+  (use-package org
+    :ensure `(org :repo "https://code.tecosaur.net/tec/org-mode.git/"
+  		:branch "dev"
+  	   )
+    :config
+     (set-face-attribute 'org-block-begin-line nil :height 150)
+    :custom
+     (org-pretty-entities t)
+     (fill-column 70)
+    :hook
+     (org-mode . auto-fill-mode)
+     (org-mode . (lambda ()
+  		   (font-lock-add-keywords
+  		    nil
+  		    '(
+  		      ("^#\\+begin_src\\(.*\\)$"
+  		       (0 (progn
+  			    (compose-region (match-beginning 0) (+ (match-beginning 0) 11) "")
+  			    nil)))))
+  		   ))
+
+  )
+#+end_src
+*** Org Roam
+:PROPERTIES:
+:ID:       58aed539-b711-444f-aacc-7d936ec93c16
+:END:
+
+[[https://github.com/org-roam/org-roam][Org-Roam]] is a note-taking tool.
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-org-roam.el" :mkdirp yes
+  (use-package org-roam
+    :ensure t
+    :init
+    (setq org-roam-v2-ack t)
+    (org-roam-db-sync)
+    :custom
+    (org-roam-node-display-template
+        (concat "${title:*} "
+                (propertize "${tags:10}" 'face 'org-tag)))
+    (org-roam-directory (file-truename my-emacs-notes-dir))
+    (org-roam-dailies-directory  (file-truename my-emacs-dailies-dir))
+    :config
+    (require 'org-roam-export) 
+    :general
+    (:prefix "C-c n"
+
+  	   "D r" 'org-roam-db-sync
+  	   
+  	   "n i" 'org-roam-node-insert
+  	   "n f" 'org-roam-node-find
+  	   "n d" 'org-roam-node-remove
+
+  	   "r i" 'org-roam-ref-add
+  	   "r d"  'org-roam-ref-remove
+
+  	   "t i" 'org-roam-tag-add
+  	   "t d" 'org-roam-tag-remove
+
+  	   "d i" 'org-roam-dailies-capture-today
+  	   "d f" 'org-roam-dailies-goto-date
+  )
+#+end_src
+*** Org2Blog
+:PROPERTIES:
+:ID:       12db6dab-fef2-48dc-8d5f-bd10ee991a56
+:END:
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-org2blog.el" :mkdirp yes
+  (use-package org2blog
+    :ensure t
+    :commands (org2blog-user-interface)
+    :config
+    (org2blog-user-login)
+    :preface
+    (defun my-emacs-blog--creds ()
+      (let* ((entry (car (auth-source-search
+  			:host my-emacs-blog-domain
+  			:require '(:user :secret))))
+  	   (user (plist-get entry :user))
+  	   (secret (plist-get entry :secret))
+  	   (pass (if (functionp secret) (funcall secret) secret)))
+        (list user pass)))
+    (defun my-emacs-blog--run-after-save (post)
+      (pp post)
+    )
+    :custom
+    (org2blog/wp-blog-alist
+     (let* ((creds (my-emacs-blog--creds))
+  	  (user (car creds))
+  	  (pass (cadr creds)))
+       `((,my-emacs-blog-name
+  	:url ,my-emacs-blog-url
+  	:username ,user
+  	:password ,pass))))
+    (org2blog/wp-image-thumbnails t)
+    (org2blog/wp-use-wp-latex t)
+    (org2blog/wp-image-upload t)
+    (org2blog/wp-show-post-in-browser 'show)
+    :general
+    (:prefix "C-c b" 
+  	   "i"     'org2blog-user-interface
+  	   "n"     'org2blog-buffer-new
+
+  	   "b p"   'org2blog-buffer-post-publish
+  	   "b s"   'org2blog-buffer-post-save 
+  	   "b v"   'org2blog-buffer-post-view
+  	   "b d"   'org2blog-buffer-post-trash
+
+  	   "p p"   'org2blog-buffer-page-publish
+  	   "p s"   'org2blog-buffer-page-save
+  	   "p v"   'org2blog-buffer-page-view
+  	   "p d"   'org2blog-buffer-page-trash
+  	   )
+    :hook
+    (org2blog-buffer-entry-save . my-emacs-blog--run-after-save)
+  )
+#+end_src
+*** Org Latex Preview
+:PROPERTIES:
+:ID:       02d5c601-ba6e-409f-89e4-0e928e8fc28a
+:END:
+#+begin_src emacs-lisp :tangle "my-emacs-packages/org-latex-preview.el" :mkdirp yes
+  (use-package org-latex-preview
+    :ensure nil
+    :config
+    (plist-put org-latex-preview-appearance-options
+             :page-width 0.8)
+    :custom
+    (org-latex-preview-mode-display-live t)
+    (org-latex-preview-mode-update-delay 0.25)
+    (org-latex-preview-ltxpng-directory my-emacs-latex-png-dir)
+    (org-latex-create-formula-image-program 'dvisvgm)
+    :hook
+    (org-mode)
+  )
+#+end_src
+*** Embark && Consult
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-consult.el" :mkdirp yes
+  (use-package embark-consult
+    :ensure t
+  )
+#+end_src
+**** Consult
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-consult.el" :mkdirp yes
+  (use-package consult 
+    :ensure t
+    :general
+    ("C-x b" 'consult-buffer)
+    ("C-x v r" 'consult-register)
+    ("C-x r s" 'consult-register-store)
+    ("C-x r l" 'consult-register-load) 
+    ("C-x v M"    'consult-global-mark)
+    ("C-x v m"    'consult-mark)
+    ("C-x C-f" 'consult-find)
+    ("M-g g" 'consult-goto-line)
+    ("M-g i" 'consult-imenu)
+    ("M-g p" 'consult-imenu-multi)
+    ("M-g m" 'consult-outline)
+    ("M-g f" 'consult-flymake)
+    ("M-g c" 'consult-compile-error)
+    ("M-s l" 'consult-line)
+    ("M-s L" 'consult-line-multi)
+    ("M-s g" 'consult-ripgrep)
+  )
+  :config
+  (setq consult-async-min-input 1)
+#+end_src
+**** Embark
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-embark.el" :mkdirp yes
+  (use-package embark
+    :ensure t
+    :general
+    ("C-." 'embark-act)
+    ("C-;" 'embark-dwim)
+  )
+#+end_src
+*** Project
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-project.el" :mkdirp yes
+  (use-package project
+    :ensure nil
+  )
+#+end_src
+*** Themes
+**** Ef
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-ef-theme.el" :mkdirp yes
+  (use-package ef-themes
+    :ensure t
+    :init
+    (ef-themes-take-over-modus-themes-mode 1)
+    :custom 
+    (modus-themes-mixed-fonts t)
+    (modus-themes-italic-constructs t)
+    :config
+    (modus-themes-load-theme 'ef-light)
+    )
+#+end_src
+
+
+*** Autocompletion
+Vertico offers, vertical autocompletions on the minibuffer.
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-vertico.el" :mkdirp yes
+  (use-package vertico
+    :ensure t
+    :custom
+    (vertico-cycle t)
+    :init
+    (vertico-mode) 
+    :general
+    (
+     :keymaps 'vertico-map
+  	    "C-k" 'vertico-previous
+  	    "C-j" 'vertico-next
+    )
+  )
+#+end_src
+Marginalia offers comments right next to the commands on the minibuffer.
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-marginalia.el" :mkdirp yes
+  (use-package marginalia
+    :ensure t
+    :init
+    (marginalia-mode)
+  )
+#+end_src
+
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-corfu.el" :mkdirp yes
+  (use-package corfu
+    :ensure t
+    :init
+    (global-corfu-mode)
+    :general (:keymaps 'corfu-map
+  	    "C-k" 'corfu-previous
+  	    "C-j" 'corfu-next
+  	    "C-d" 'corfu-info-documentation
+  	    "C-a" 'corfu-info-location
+  	    "C-h" 'corfu-quit
+  	    "C-l" 'corfu-insert
+  	    "C-m" 'corfu-move-to-minibuffer)
+    ("C-l" 'completion-at-point)
+  )
+#+end_src
+
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-dabbrev.el" :mkdirp yes
+  (use-package dabbrev
+    :ensure nil
+    :bind (("C-M-/" . dabbrev-expand))
+    :config
+    (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
+    (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
+    (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode)
+    (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode)
+  )
+#+end_src
+
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-cape.el" :mkdirp yes
+  (use-package cape
+    :ensure t
+    :init
+    (add-hook 'completion-at-point-functions #'cape-dabbrev)
+    (add-hook 'completion-at-point-functions #'cape-file)
+    (add-hook 'completion-at-point-functions #'cape-elisp-block)
+    (add-hook 'completion-at-point-functions #'cape-history)
+    (add-hook 'completion-at-point-functions #'cape-abbrev)
+    (add-hook 'completion-at-point-functions #'cape-dict)
+    (add-hook 'completion-at-point-functions #'cape-elisp-block)
+    (add-hook 'completion-at-point-functions #'cape-keyword)
+    (add-hook 'completion-at-point-functions #'cape-tex)
+  )
+#+end_src
+
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-kind-icon.el" :mkdirp yes
+  (use-package kind-icon
+    :ensure t
+    :after corfu
+    :config
+    (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+#+end_src
+
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-orderless.el" :mkdirp yes
+  (use-package orderless
+    :ensure t
+    :custom
+    (completion-styles '(orderless partial-completion basic))
+    (completion-category-defaults nil)
+    (completion-category-overrides nil)
+  )
+#+end_src
+*** Email
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-email.el" :mkdirp yes
+  (use-package notmuch
+    :ensure t
+    :config
+    (setq send-mail-function 'sendmail-send-it
+      sendmail-program "/usr/bin/msmtp"
+      mail-specify-envelope-from t
+      message-sendmail-envelope-from 'header
+      mail-envelope-from 'header)
+    (setq notmuch-fcc-dirs nil)
+  )
+#+end_src
+*** Org-Mime
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-org-mime.el" :mkdirp yes
+  (use-package org-mime
+    :ensure t 
+  )
+#+end_src
+*** Programming Languages
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-rust.el" :mkdirp yes
+  (use-package prog-mode
+    :ensure nil
+    :custom
+    (display-line-numbers-type 'relative)
+    (fill-column 100)
+    :hook
+    (prog-mode . display-line-numbers-mode)
+    (prog-mode . auto-fill-mode)
+  )
+#+end_src
+**** Rust
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-rust.el" :mkdirp yes
+  (use-package rustic
+    :ensure t
+    :custom
+    (rustic-lsp-client 'eglot)
+    :hook
+    (rustic-mode . eglot-ensure)
+  )
+#+end_src
+**** Ocaml
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-ocaml.el" :mkdirp yes
+  (use-package tuareg
+    :ensure t
+    :hook
+    (tuareg-mode . eglot-ensure)
+  )
+#+end_src
+**** Haskell
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-haskell.el" :mkdirp yes
+  (use-package haskell-mode
+    :ensure t
+    :hook
+    (haskell-mode . eglot-ensure)
   )
 #+end_src
