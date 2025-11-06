@@ -7,10 +7,11 @@
   (org-roam-node-display-template
       (concat "${title:*} "
               (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-directory (file-truename my-emacs-notes-dir))
+  (org-roam-directory my-emacs-notes-dir)
   (org-roam-dailies-directory  (file-truename my-emacs-dailies-dir))
   :config
   (require 'org-roam-export) 
+  (org-roam-db-autosync-mode)
   :general
   (:prefix "C-c n"
 
@@ -28,4 +29,4 @@
 
 	   "d i" 'org-roam-dailies-capture-today
 	   "d f" 'org-roam-dailies-goto-date
-)
+))

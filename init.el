@@ -3,6 +3,42 @@
   :group 'emacs
 )
 
+(defcustom my-emacs-bibliography "~/Documents/Bibliography/global.bib"
+  "Where org-roam notes live."
+  :group 'my-emacs
+  :type 'string
+)
+
+(defcustom my-emacs-bibliography-search-dir "~/Documents/Bibliography/"
+  "Where org-roam notes live."
+  :group 'my-emacs
+  :type 'directory
+)
+
+(defcustom my-emacs-bibliography-dir "~/Documents/Bibliography"
+  "Where org-roam notes live."
+  :group 'my-emacs
+  :type 'directory
+)
+
+(defcustom my-emacs-citar-bibliographies '("~/Documents/Bibliography/global.bib")
+    "List of bibliography files for Citar."
+    :group 'my-emacs
+    :type '(repeat file)
+  )
+
+(defcustom my-emacs-citar-notes-paths'("~/Documents/Notes/")
+    "List of paths for Citar notes."
+    :group 'my-emacs
+    :type '(repeat file)
+  )
+
+(defcustom my-emacs-citar-library-paths '("~/Documents/Papers" "~/Documents/Books")
+   "List of of library paths for Citar."
+    :group 'my-emacs
+    :type '(repeat file)
+ )
+
 (defcustom my-emacs-notes-dir "~/Documents/Notes"
   "Where org-roam notes live."
   :group 'my-emacs

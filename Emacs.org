@@ -39,6 +39,55 @@ To define the group we use the =defgroup= macro.
   )
 #+end_src
 **** Emacs Environment Options
+The =my-emacs-bibliographies= defines the files
+where the global bibliographies are stored.
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-bibliography "~/Documents/Bibliography/global.bib"
+    "Where org-roam notes live."
+    :group 'my-emacs
+    :type 'string
+  )
+#+end_src
+
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-bibliography-search-dir "~/Documents/Bibliography/"
+    "Where org-roam notes live."
+    :group 'my-emacs
+    :type 'directory
+  )
+#+end_src
+
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-bibliography-dir "~/Documents/Bibliography"
+    "Where org-roam notes live."
+    :group 'my-emacs
+    :type 'directory
+  )
+#+end_src
+
+#+begin_src emacs-lisp :tangle "init.el" 
+  (defcustom my-emacs-citar-bibliographies '("~/Documents/Bibliography/global.bib")
+      "List of bibliography files for Citar."
+      :group 'my-emacs
+      :type '(repeat file)
+    )
+#+end_src
+
+#+begin_src emacs-lisp :tangle "init.el" 
+  (defcustom my-emacs-citar-notes-paths'("~/Documents/Notes/")
+      "List of paths for Citar notes."
+      :group 'my-emacs
+      :type '(repeat file)
+    )
+#+end_src
+
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-citar-library-paths '("~/Documents/Papers" "~/Documents/Books")
+     "List of of library paths for Citar."
+      :group 'my-emacs
+      :type '(repeat file)
+   )
+#+end_src
 The =my-emacs-notes-dir= defines the directory
 where notes are going to be stored as defined in [[id:58aed539-b711-444f-aacc-7d936ec93c16][Org Roam]].
 #+begin_src emacs-lisp :tangle "init.el"
@@ -557,10 +606,11 @@ Eglot is the built in LSP server for Emacs.
     (org-roam-node-display-template
         (concat "${title:*} "
                 (propertize "${tags:10}" 'face 'org-tag)))
-    (org-roam-directory (file-truename my-emacs-notes-dir))
+    (org-roam-directory my-emacs-notes-dir)
     (org-roam-dailies-directory  (file-truename my-emacs-dailies-dir))
     :config
     (require 'org-roam-export) 
+    (org-roam-db-autosync-mode)
     :general
     (:prefix "C-c n"
 
@@ -578,7 +628,7 @@ Eglot is the built in LSP server for Emacs.
 
   	   "d i" 'org-roam-dailies-capture-today
   	   "d f" 'org-roam-dailies-goto-date
-  )
+  ))
 #+end_src
 *** Org2Blog
 :PROPERTIES:
@@ -653,13 +703,94 @@ Eglot is the built in LSP server for Emacs.
     (org-mode)
   )
 #+end_src
+*** Nerd Icons
+:PROPERTIES:
+:ID:       7acb8b56-d7df-4085-bfb5-8f765ee92c76
+:END:
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-nerd-icons.el" :mkdirp yes
+  (use-package nerd-icons
+    :ensure t
+  )
+#+end_src
+*** Ebib
+:PROPERTIES:
+:ID:       632416c5-a3da-48e5-83d9-5f34cc9f8f67
+:END:
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-ebib.el" :mkdirp yes
+  (use-package ebib
+    :ensure t
+    :custom
+    (ebib-bibtex-dialect (car (cdr bibtex-dialect-list)))
+    (ebib-bib-search-dirs my-emacs-bibliography-search-dir)
+    (ebib-default-directory my-emacs-bibliography)
+    (ebib-truncate-file-names nil)
+  )
+#+end_src
+*** Citar
+:PROPERTIES:
+:ID:       06fae039-5c33-44e3-ba4c-9ddd19b194d8
+:END:
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-citar.el" :mkdirp yes
+  (use-package citar
+    :ensure t
+    :custom
+    (citar-bibliography my-emacs-citar-bibliographies)
+    (org-cite-global-bibliography my-emacs-citar-bibliographies)
+    (citar-library-paths my-emacs-citar-library-paths)
+    (citar-notes-paths my-emacs-citar-notes-paths)
+    (org-cite-insert-processor 'citar)
+    (org-cite-follow-processor 'citar)
+    (org-cite-activate-processor 'citar)
+    :hook
+    (LaTeX-mode . citar-capf-setup)
+    (org-mode . citar-capf-setup)
+    :general
+    (:prefix "C-c n"
+             "p o" 'citar-open
+             "p n" 'citar-open-note
+             "p f" 'citar-open-file
+             "p l" 'citar-open-links
+             "p N" 'citar-open-notes
+    )
+  )
+#+end_src
+*** Citar-Embark
+:PROPERTIES:
+:ID:       aefa8972-f577-4d34-82bb-a67d5584481a
+:END:
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-citar-embark.el" :mkdirp yes
+  (use-package citar-embark
+    :ensure t
+    :after (citar embark)
+    :config
+    (citar-embark-mode)
+  )
+#+end_src
+*** Citar-Org-Roam
+:PROPERTIES:
+:ID:       be672102-60b7-4866-b0f8-99acc9a8f844
+:END:
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-citar-org-roam.el" :mkdirp yes
+  (use-package citar-org-roam
+    :ensure t
+    :after (citar org-roam)
+    :config
+    (citar-org-roam-mode)
+  )
+#+end_src
 *** Embark && Consult
+:PROPERTIES:
+:ID:       2df2306f-5a57-4f3d-9f50-40f94d8459bc
+:END:
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-consult.el" :mkdirp yes
   (use-package embark-consult
     :ensure t
   )
 #+end_src
 **** Consult
+:PROPERTIES:
+:ID:       f4c474be-976b-402c-8239-df92b7c9fa4f
+:END:
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-consult.el" :mkdirp yes
   (use-package consult 
     :ensure t
@@ -685,6 +816,9 @@ Eglot is the built in LSP server for Emacs.
   (setq consult-async-min-input 1)
 #+end_src
 **** Embark
+:PROPERTIES:
+:ID:       9460042b-f35e-4cee-9ac1-092651f2e905
+:END:
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-embark.el" :mkdirp yes
   (use-package embark
     :ensure t
@@ -694,13 +828,22 @@ Eglot is the built in LSP server for Emacs.
   )
 #+end_src
 *** Project
+:PROPERTIES:
+:ID:       69ff5518-5561-427b-95cc-0784306c9082
+:END:
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-project.el" :mkdirp yes
   (use-package project
     :ensure nil
   )
 #+end_src
 *** Themes
+:PROPERTIES:
+:ID:       c14ce9c6-3e64-4379-9ecc-3496f820c091
+:END:
 **** Ef
+:PROPERTIES:
+:ID:       702d2015-a26e-4074-9059-dc1c657c0404
+:END:
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-ef-theme.el" :mkdirp yes
   (use-package ef-themes
     :ensure t
@@ -713,9 +856,10 @@ Eglot is the built in LSP server for Emacs.
     (modus-themes-load-theme 'ef-light)
     )
 #+end_src
-
-
 *** Autocompletion
+:PROPERTIES:
+:ID:       5508413d-791d-4107-a7a0-265daadf1b64
+:END:
 Vertico offers, vertical autocompletions on the minibuffer.
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-vertico.el" :mkdirp yes
   (use-package vertico
@@ -804,6 +948,9 @@ Marginalia offers comments right next to the commands on the minibuffer.
   )
 #+end_src
 *** Email
+:PROPERTIES:
+:ID:       b199f3cd-bc96-4140-b725-4ca320e90998
+:END:
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-email.el" :mkdirp yes
   (use-package notmuch
     :ensure t
@@ -817,12 +964,18 @@ Marginalia offers comments right next to the commands on the minibuffer.
   )
 #+end_src
 *** Org-Mime
+:PROPERTIES:
+:ID:       fea4ce12-bf6d-4e2b-a26a-80290f59d61d
+:END:
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-org-mime.el" :mkdirp yes
   (use-package org-mime
     :ensure t 
   )
 #+end_src
 *** Programming Languages
+:PROPERTIES:
+:ID:       aded49c3-48a3-462a-8f24-abeb5bae2eb6
+:END:
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-rust.el" :mkdirp yes
   (use-package prog-mode
     :ensure nil
@@ -835,6 +988,9 @@ Marginalia offers comments right next to the commands on the minibuffer.
   )
 #+end_src
 **** Rust
+:PROPERTIES:
+:ID:       df45555c-c0db-4a4e-acfe-80d8b1613896
+:END:
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-rust.el" :mkdirp yes
   (use-package rustic
     :ensure t
@@ -845,6 +1001,9 @@ Marginalia offers comments right next to the commands on the minibuffer.
   )
 #+end_src
 **** Ocaml
+:PROPERTIES:
+:ID:       e7be6e66-5cbc-4476-8d0e-de5726cdc42b
+:END:
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-ocaml.el" :mkdirp yes
   (use-package tuareg
     :ensure t
@@ -853,6 +1012,9 @@ Marginalia offers comments right next to the commands on the minibuffer.
   )
 #+end_src
 **** Haskell
+:PROPERTIES:
+:ID:       a1cab303-6f5b-4057-8fc1-d222f931d16b
+:END:
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-haskell.el" :mkdirp yes
   (use-package haskell-mode
     :ensure t
@@ -861,6 +1023,9 @@ Marginalia offers comments right next to the commands on the minibuffer.
   )
 #+end_src
 **** Python
+:PROPERTIES:
+:ID:       cd2a8f9c-1eb4-488b-b77b-e79c5b95b2f4
+:END:
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-python.el" :mkdirp yes
   (use-package python-mode
     :ensure nil
