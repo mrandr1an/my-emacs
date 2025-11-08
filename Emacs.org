@@ -1033,3 +1033,14 @@ Marginalia offers comments right next to the commands on the minibuffer.
     (python-mode . eglot-ensure)
   )
 #+end_src
+**** C++
+:PROPERTIES:
+:ID:       97478dcf-d9c9-4816-ab7e-7469d41169e3
+:END:
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-cpp.el" :mkdirp yes
+  (use-package c++-mode
+    :ensure nil
+    :hook
+    (c++-mode . eglot-ensure)
+  )
+#+end_src
