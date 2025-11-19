@@ -1044,3 +1044,9 @@ Marginalia offers comments right next to the commands on the minibuffer.
     (c++-mode . eglot-ensure)
   )
 #+end_src
+**** GLSL
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-glsl.el" :mkdirp yes
+  (use-package glsl
+    :ensure t
+  )
+#+end_src
