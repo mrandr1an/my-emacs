@@ -1,3 +1,3 @@
-(use-package glsl
+(use-package glsl-mode
   :ensure t
 )
