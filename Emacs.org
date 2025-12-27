@@ -74,7 +74,7 @@ where the global bibliographies are stored.
 #+end_src
 
 #+begin_src emacs-lisp :tangle "init.el" 
-  (defcustom my-emacs-citar-notes-paths'("~/Documents/Notes/")
+  (defcustom my-emacs-citar-notes-paths '("~/Documents/Notes/")
       "List of paths for Citar notes."
       :group 'my-emacs
       :type '(repeat file)
@@ -88,6 +88,15 @@ where the global bibliographies are stored.
       :type '(repeat file)
    )
 #+end_src
+
+#+begin_src emacs-lisp :tangle "init.el"
+  (defcustom my-emacs-agenda '("~/Documents/Agenda/Study.org" "~/Documents/Agenda/Work.org" "~/Documents/Agenda/Life.org")
+      "Where the org agenda lives."
+      :group 'my-emacs
+      :type '(repeat directory)
+  )
+#+end_src
+
 The =my-emacs-notes-dir= defines the directory
 where notes are going to be stored as defined in [[id:58aed539-b711-444f-aacc-7d936ec93c16][Org Roam]].
 #+begin_src emacs-lisp :tangle "init.el"
@@ -684,11 +693,33 @@ Eglot is the built in LSP server for Emacs.
     (org2blog-buffer-entry-save . my-emacs-blog--run-after-save)
   )
 #+end_src
+*** Org Agenda
+:PROPERTIES:
+:ID:       01a578a0-61b8-4a1f-bd4c-160f49eebbd9
+:END:
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-org-agenda.el" :mkdirp yes
+  (use-package org-agenda
+    :ensure nil
+    :after (org)
+    :custom
+    (org-agenda-files my-emacs-agenda)
+  )
+#+end_src
+*** Org Super Agenda
+:PROPERTIES:
+:ID:       a6e5cf7b-4291-40bd-b781-8704df97bd2d
+:END:
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-org-superagenda.el" :mkdirp yes
+  (use-package org-super-agenda
+    :ensure t
+    :after org 
+  )
+#+end_src
 *** Org Latex Preview
 :PROPERTIES:
 :ID:       02d5c601-ba6e-409f-89e4-0e928e8fc28a
 :END:
-#+begin_src emacs-lisp :tangle "my-emacs-packages/org-latex-preview.el" :mkdirp yes
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-org-latex-preview.el" :mkdirp yes
   (use-package org-latex-preview
     :ensure nil
     :config
@@ -1045,6 +1076,9 @@ Marginalia offers comments right next to the commands on the minibuffer.
   )
 #+end_src
 **** GLSL
+:PROPERTIES:
+:ID:       0ae82b5c-28f0-4803-b207-9919485f650f
+:END:
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-glsl.el" :mkdirp yes
   (use-package glsl-mode
     :ensure t

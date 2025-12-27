@@ -27,7 +27,7 @@
     :type '(repeat file)
   )
 
-(defcustom my-emacs-citar-notes-paths'("~/Documents/Notes/")
+(defcustom my-emacs-citar-notes-paths '("~/Documents/Notes/")
     "List of paths for Citar notes."
     :group 'my-emacs
     :type '(repeat file)
@@ -38,6 +38,12 @@
     :group 'my-emacs
     :type '(repeat file)
  )
+
+(defcustom my-emacs-agenda '("~/Documents/Agenda/Study.org" "~/Documents/Agenda/Work.org" "~/Documents/Agenda/Life.org")
+    "Where the org agenda lives."
+    :group 'my-emacs
+    :type '(repeat directory)
+)
 
 (defcustom my-emacs-notes-dir "~/Documents/Notes"
   "Where org-roam notes live."
