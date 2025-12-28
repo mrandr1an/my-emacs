@@ -113,4 +113,11 @@ Finally I restart the GNOME desktop database to make sure the entry
 update-desktop-database ~/.local/share/applications
 ```
 
+### POV You want to...
+
+#### [Send an email][./pov/send_email.org].
+#### [Check your mail][./pov/check_email.org].
+#### [Add an entry to your agenda][./pov/add_agenda.org].
+#### [Check your agenda][./pov/check_agenda.org].
+
 ### Cloning, Pulling.
