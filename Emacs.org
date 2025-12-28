@@ -700,9 +700,28 @@ Eglot is the built in LSP server for Emacs.
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-org-agenda.el" :mkdirp yes
   (use-package org-agenda
     :ensure nil
-    :after (org)
+    :after (org org-capture)
     :custom
     (org-agenda-files my-emacs-agenda)
+    (org-log-done 'time)
+    :config
+    (setq org-capture-templates
+    (append org-capture-templates
+        '(("p" "Personal todo" entry
+           (file "~/Documents/Agenda/Study.org")
+           "* TODO %?\n  %U\n")
+
+          ("l" "Life todo" entry
+           (file "~/Documents/Agenda/Life.org")
+           "* TODO %?\n  %U\n")
+
+          ("w" "Work todo (pick employer tag)" entry
+           (file "~/Documents/Agenda/Work.org")
+           "* TODO %?\n  :%^{Employer}:\n  %U\n"))))
+    :general
+    (:prefix "C-c n"
+  	    "a a" 'org-agenda
+    )
   )
 #+end_src
 *** Org Super Agenda
@@ -712,7 +731,9 @@ Eglot is the built in LSP server for Emacs.
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-org-superagenda.el" :mkdirp yes
   (use-package org-super-agenda
     :ensure t
-    :after org 
+    :after org
+    :config
+    (org-super-agenda-mode)
   )
 #+end_src
 *** Org Latex Preview

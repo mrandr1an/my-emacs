@@ -1,4 +1,6 @@
 (use-package org-super-agenda
   :ensure t
-  :after org 
+  :after org
+  :config
+  (org-super-agenda-mode)
 )
