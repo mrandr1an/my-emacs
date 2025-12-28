@@ -1,0 +1,18 @@
+* About =my-emacs=
+* Important Directories
+The =my-emacs= config depends on the following directories for
+storing org-files:
+1. =~/.emacs.d/About.org= For this org file.
+2. =~/emacs.d/pov/*.org= For other documentation regarding this configuration.
+3. =~/Documents/Contacts.org= For storing contacts.
+4. =~/Documents/Agenda/*.org= For agenda entries.
+5. =~/Documents/Bibliography/*.bib= For bibliography management.
+6. =~/Documents/Blog/*.org= For storing blog posts.
+7. =~/Documents/Notes/*.org= For storing notes.
+8. =~/Documents/Dailies/*.org= For storing dailies/diary styled notes.
+9. =~/Documents/Latexpng/*.png= For storing the automatically
+   generated latex images.
+10. =~/Documents/Papers/*.pdf= For storing academic papers.
+11. =~/Documents/Books/*.pdf= For storing academic books.
+12. =~/Documents/Mail= For storing mail.
+13. =~/Documents/Exports/= For storing exported notes and other documents.

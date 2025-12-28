@@ -130,5 +130,6 @@ update-desktop-database ~/.local/share/applications
 #### [Edit/Update Blog Post](./pov/update_or_edit_blogpost.org).
 #### [Multiedit](./pov/multiedit.org).
 #### [Use Advanced Cursor Movement and Features](./pov/movement.org).
+#### TODO [Use Matrix (with encryption)](./pov/movement.org).
 
 ### (TODO) Cloning, Pulling.
