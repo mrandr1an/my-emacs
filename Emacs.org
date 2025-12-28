@@ -263,6 +263,10 @@ I use use-package for declaratively configuring emacs
     (my-emacs-load-packages) 
     (display-line-numbers-mode nil)
     (set-face-attribute 'default nil :family "0xProtoNerdFont" :height 120)
+    :custom
+    (lpr-command "lp")
+    (lpr-switches '("-d" "DCPL2530DW"))
+    (lpr-add-switches nil)
   )
 #+end_src
 ** Core Functions (=my-emacs-functions.el=)
