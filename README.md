@@ -119,5 +119,16 @@ update-desktop-database ~/.local/share/applications
 #### [Check your mail](./pov/check_email.org).
 #### [Add an entry to your agenda](./pov/add_agenda.org).
 #### [Check your agenda](./pov/check_agenda.org).
+#### [Add contact](./pov/add_contact.org).
+#### [Email contact](./pov/email_contact.org).
+#### [Add file to bibliography](./pov/add_bibliography.org).
+#### [Create Notes](./pov/create_notes.org).
+#### [Read Notes](./pov/read_notes.org).
+#### [Export Notes](./pov/export_notes.org).
+#### [Print Notes, Buffers, Blog Posts](./printing.org).
+#### [Create Blog Post](./pov/create_blog_post.org).
+#### [Edit/Update Blog Post](./pov/update_or_edit_blogpost.org).
+#### [Multiedit](./pov/multiedit.org).
+#### [Use Advanced Cursor Movement and Features](./pov/movement.org).
 
-### Cloning, Pulling.
+### (TODO) Cloning, Pulling.
