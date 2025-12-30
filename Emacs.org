@@ -596,7 +596,10 @@ Eglot is the built in LSP server for Emacs.
   			    (compose-region (match-beginning 0) (+ (match-beginning 0) 11) "")
   			    nil)))))
   		   ))
-
+     :general
+     (:prefix "C-c i"
+  	    "d" 'org-id-get-create
+  	    "f" 'org-footnote-new)
   )
 #+end_src
 *** Org Roam
@@ -693,47 +696,200 @@ Eglot is the built in LSP server for Emacs.
     (org2blog-buffer-entry-save . my-emacs-blog--run-after-save)
   )
 #+end_src
+*** Org Capture
+:PROPERTIES:
+:ID:       678ceacd-e273-4fd8-aa52-5866be634962
+:END:
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-org-capture.el" :mkdirp yes
+  (use-package org-capture
+    :ensure nil
+    :config
+    (setq org-capture-templates
+      (append org-capture-templates
+          '(
+  	  ("c" "Capture a simple contact (phone && email)" entry
+  	   (file+headline "~/Documents/Contacts.org" "Contacts") 	  
+  	   "* %^{Contact Name}\n:PROPERTIES:\n:PHONE: %^{PHONE}\n:EMAIL: %^{Email}\n:CREATED:%U\n:END:\n%?")
+  	  )
+    	))
+    :general
+    (:prefix "C-c c"
+  	   "c" 'org-capture
+  	   )
+  )
+#+end_src
 *** Org Agenda
 :PROPERTIES:
 :ID:       01a578a0-61b8-4a1f-bd4c-160f49eebbd9
 :END:
+The agenda should classify all of my activities into one of the
+following buckets:
+1. Things I need to do, eventually;
+2. Things I need to complete by a specific date;
+3. Things I cannot (or won't) start until a specific date;
+4. Things I cannot (or won't) start until an *unspecified* date;
+5. Things I should do with some loose frequency.
+6. Things that I have to do every X amount of time.
+Each of these aligns with an Org Mode feature:
+1. A plain *TODO* entry.
+2. An entry with a *DEADLINE* time stamp.
+3. A *WAITING* entry with a *SCHEDULED* time stamp.
+4. A *WAITING* entry without a time stamp.
+5. An entry with a *STYLE* property of "habit".
+6. An entry with a [[https://orgmode.org/manual/Repeated-tasks.htmll][repeaters]].
+An activity however is not only described by its timeline. These are
+the activity types:
+1. *PROJ*
+   A project entry meant to hold many subtasks. Can be *FINISHED*.
+2. *TODO*
+   A general entry. It can be *WAITING*, *DONE* and *CANCELLED*.
+3. *RECURRING*
+   For recurring tasks (think, gym, every day at specific time). Can
+   be *DONE* (i.e. you stopped going to the gym).
+Obviously each of these "tasks" will have a different skeleton and we
+automate it using =org-capture-templates=. Note that the
+capture-templates *append* the =org-capture-templates= variable, they
+dont set it from scratch.
+The agenda needs some sort of "view" for the user to interact with
+it. This is implemented in[[id:a6e5cf7b-4291-40bd-b781-8704df97bd2d][ org-super-agenda]].
+References for this implementation include [fn:1],[fn:2]
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-org-agenda.el" :mkdirp yes
-  (use-package org-agenda
-    :ensure nil
-    :after (org org-capture)
-    :custom
-    (org-agenda-files my-emacs-agenda)
-    (org-log-done 'time)
-    :config
-    (setq org-capture-templates
-    (append org-capture-templates
-        '(("p" "Personal todo" entry
-           (file "~/Documents/Agenda/Study.org")
-           "* TODO %?\n  %U\n")
+    (use-package org-agenda
+      :ensure nil
+      :after (org org-capture)
+      :custom
+      (org-agenda-files my-emacs-agenda)
+      (org-use-fast-todo-selection t)
+      (org-log-done 'note)
+      (org-log-reschedule 'note)
+      (org-log-redeadline 'note)
+      (org-log-refile 'time)
+      :config
+      (setq org-todo-keywords
+    	(append org-todo-keywords
+    		'(
+    		  (sequence "TODO(t!)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELLED(c@)")
+    		  (type "PROJ(p!)" "|" "FINISHED(f!)")
+    		  (sequence "RECURRING(t!)" "|" "DONE(d)" "CANCELLED(c@)")
+    		  ))
+    	)
+      (setq org-capture-templates
+      (append org-capture-templates
+          '(
+    	("t" "Capture a study task." entry
+             (file "~/Documents/Agenda/Study.org")
+             "* TODO %^{Priority| |[#A]|[#B]|[#C]} %^{Task} %? :someday: \n:PROPERTIES:\n:CREATED:%U\n:END:\n")
+    	
+    	("P" "Capture a project for studying." entry
+    	 (file "~/Documents/Agenda/Study.org")
+    	 "* PROJ %^{Project Name}%? [0%] :project: \n:PROPERTIES:\n:CREATED:%U\n:END:\n")
 
-          ("l" "Life todo" entry
-           (file "~/Documents/Agenda/Life.org")
-           "* TODO %?\n  %U\n")
+    	("P" "Capture a project for work." entry
+    	 (file "~/Documents/Agenda/Work.org")
+    	 "* PROJ %^{Project Name}%? [0%] :%^{Employer}:project: \n:PROPERTIES:\n:CREATED:%U\n:END:\n")
+    	
+    	("l" "Capture a life task." entry
+             (file "~/Documents/Agenda/Life.org")
+             "* TODO %^{Priority| |[#A]|[#B]|[#C]} %^{Task} %? :someday: \n:PROPERTIES:\n:CREATED:%U:END:\n")
 
-          ("w" "Work todo (pick employer tag)" entry
-           (file "~/Documents/Agenda/Work.org")
-           "* TODO %?\n  :%^{Employer}:\n  %U\n"))))
-    :general
-    (:prefix "C-c n"
-  	    "a a" 'org-agenda
+    	("L" "Capture an apointment." entry
+             (file "~/Documents/Agenda/Life.org")
+             "* TODO %^{Task} %? :appointment:\nSCHEDULED: %^T\n:PROPERTIES:\n:CREATED:%U\n:END:\n")
+
+    	("w" "Capture a work task." entry
+             (file+headline "~/Documents/Agenda/Work.org" "Inbox")
+             "* WAITING %^{Priority| |[#A]|[#B]|[#C]} %^{Task} %? :%^{Employer}:\n:PROPERTIES:\n:CREATED:%U\n:END:\n")
+
+    	("W" "Capture a deadlined work task." entry
+             (file+headline "~/Documents/Agenda/Work.org" "Inbox")
+             "* TODO %^{Priority| |[#A]|[#B]|[#C]} %^{Task} %? :%^{Employer}:\nDEADLINE: %^t\n:PROPERTIES:\n:CREATED:%U\n:END:\n")
+
+    	("S" "Capture a scheduled work task." entry
+             (file+headline "~/Documents/Agenda/Work.org" "Inbox")
+             "* TODO %^{Priority| |[#A]|[#B]|[#C]} %^{Task} %? :%^{Employer}:\nSCHEDULED: %^t\n:PROPERTIES:\n:CREATED:%U\n:END:\n")
+
+   	("R" "Recurring work task (pick interval)" entry
+   	 (file "~/Documents/Agenda/Work.org")
+   	 "* RECURRING %^{Task}\n:%^{Employer}:\nSCHEDULED: %(let* ((tstr (org-read-date nil nil nil \"Start (date or date+time, e.g. 2025-12-29 14:30): \"))\n
+                  (t0   (org-time-string-to-time tstr))\n
+                  (rep  (completing-read \"Repeater: \"\n
+                                         '(\"++1d\" \"+1d\"\n \"++1w\" \"+1w\" \"++2w\" \"+2w\"\n \"++1m\" \"+1m\" \"++1y\" \"+1y\")\n nil t))\n
+                  (fmt  (if (string-match-p \"[0-9][0-9]:[0-9][0-9]\" tstr)\n
+                            \"%Y-%m-%d %a %H:%M\"\n
+                          \"%Y-%m-%d %a\")))\n
+             (format \"<%s %s>\" (format-time-string fmt t0) rep))\n:PROPERTIES:\n:CREATED: %U\n:END:\n%?")
+
+  	("r" "Recurring life task (pick interval)" entry
+  	 (file "~/Documents/Agenda/Life.org")
+  	 "* RECURRING %^{Task}\nSCHEDULED: %(let* ((tstr (org-read-date nil nil nil \"Start (date or date+time, e.g. 2025-12-29 14:30): \"))\n
+                 (t0   (org-time-string-to-time tstr))\n
+                 (rep  (completing-read \"Repeater: \"\n
+                                        '(\"++1d\" \"+1d\"\n \"++1w\" \"+1w\" \"++2w\" \"+2w\"\n \"++1m\" \"+1m\" \"++1y\" \"+1y\")\n nil t))\n
+                 (fmt  (if (string-match-p \"[0-9][0-9]:[0-9][0-9]\" tstr)\n
+                           \"%Y-%m-%d %a %H:%M\"\n
+                         \"%Y-%m-%d %a\")))\n
+            (format \"<%s %s>\" (format-time-string fmt t0) rep))\n:PROPERTIES:\n:CREATED: %U\n:END:\n%?")
+            )))
+      :general
+      (:prefix "C-c n"
+    	    "a a" 'org-agenda
+      )
     )
-  )
 #+end_src
 *** Org Super Agenda
 :PROPERTIES:
 :ID:       a6e5cf7b-4291-40bd-b781-8704df97bd2d
 :END:
+An agenda custom command allows you to create custom views that are
+easilly triggered. More specifically =org-agenda-custom-commands= is a
+list of lists, the elemements (lists) are the custom commands which
+define the view and org-super-agenda is used to compartmentalize, 
+make the view prettier and easilly customizable.
 #+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-org-superagenda.el" :mkdirp yes
   (use-package org-super-agenda
     :ensure t
     :after org
     :config
     (org-super-agenda-mode)
+    (setq org-agenda-custom-commands
+  	'(
+  	  ("d" "Simple Agenda View"
+  	   (
+  	    (agenda ""
+  		   (
+  		   (org-agenda-span 1)
+  	           (org-agenda-overriding-header "Today's Schedule")
+  		   (org-super-agenda-groups
+  		    '(
+  		      (:name "Schedule" :time-grid t)
+  		      (:name "Due today" :deadline today)
+  		      (:discard (:anything t))
+  		     )
+  		    )))
+  	     (todo "TODO" (
+  			   (org-agenda-overriding-header "General Priority Tasks")
+  			   (org-super-agenda-groups
+  			  '(
+  			    (:name "High priority" :priority "A")
+  			    (:name "Medium priority" :priority "B")
+  			    (:name "Low priority" :priority "C")
+  			    (:discard (:anything t))
+  			    ))))
+  	    (agenda ""
+  		   (
+  		   (org-agenda-span 14)
+  	           (org-agenda-overriding-header "Week's Schedule")
+  		   (org-super-agenda-groups
+  		    '(
+  		      (:name "Schedule" :time-grid t)
+  		      (:name "Deadlines" :deadline today)
+  		      (:name "Scheduled" :scheduled today)
+  		      (:discard (:anything t))
+  		     )
+  		    )))
+  	     ))
+  	 )
+  	)
   )
 #+end_src
 *** Org Latex Preview
@@ -1105,3 +1261,8 @@ Marginalia offers comments right next to the commands on the minibuffer.
     :ensure t
   )
 #+end_src
+
+* Footnotes
+[fn:2] https://orgmode.org/manual/Repeated-tasks.html 
+[fn:1] https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html
+

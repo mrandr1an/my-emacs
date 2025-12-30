@@ -25,5 +25,8 @@
 			    (compose-region (match-beginning 0) (+ (match-beginning 0) 11) "")
 			    nil)))))
 		   ))
-
+   :general
+   (:prefix "C-c i"
+	    "d" 'org-id-get-create
+	    "f" 'org-footnote-new)
 )
