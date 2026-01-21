@@ -1264,6 +1264,21 @@ Marginalia offers comments right next to the commands on the minibuffer.
     (fstar-smt-executable "/usr/bin/z3")
   )
 #+end_src
+**** F#
+:PROPERTIES:
+:ID:       a4ad1a77-f937-4b3c-bf97-61004cfc9273
+:END:
+#+begin_src emacs-lisp :tangle "my-emacs-packages/my-emacs-fsharp.el" :mkdirp yes
+  (use-package eglot-fsharp
+    :ensure t
+  )
+
+  (use-package fsharp-mode
+    :ensure t
+    :hook
+    (fsharp-mode . eglot-ensure)
+  )
+#+end_src
 **** GLSL
 :PROPERTIES:
 :ID:       0ae82b5c-28f0-4803-b207-9919485f650f
