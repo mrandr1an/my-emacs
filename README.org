@@ -8,7 +8,7 @@
 * My Emacs
 
 ** About
-[[file:assets/images/myemacs_dataflow.png][My Emacs]]
+[[assets/images/myemacs_dataflow.png]]
 
 *** Supported Languages
 **** Rust
