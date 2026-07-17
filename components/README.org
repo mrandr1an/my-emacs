@@ -1,0 +1,81 @@
+#+TITLE: Components
+
+* Component 
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/Component
+:END:
+
+** Project Management 
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/ProjectManagement
+:END:
+*** Writting
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/ProjectManagement/Writting
+:END:
+*** Development
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/ProjectManagement/Development
+:END:
+*** Publication
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/ProjectManagement/Publication
+:END:
+*** Presentation
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/ProjectManagement/Presentation
+:END: 
+** Note Taking
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/NoteTaking
+:END:
+*** Publication
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/NoteTaking/Publication
+:END:
+*** Presentation
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/NoteTaking/Presentation
+:END:
+*** Seminar
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/NoteTaking/Seminar
+:END:
+*** Video
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/NoteTaking/Video
+:END:
+*** Article
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/NoteTaking/Article
+:END:
+*** Blog
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/NoteTaking/Blog
+:END:
+*** Meeting
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/NoteTaking/Meeting
+:END:
+** Journaling
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/Journaling
+:END:
+*** Diary
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/Journaling/Diary
+:END:
+** Agenda
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/Agenda
+:END:
+
+** Management
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/Management
+:END:
+
+** Communication
+:PROPERTIES:
+:CUSTOM_ID: Components/README.org/Communication
+:END:
